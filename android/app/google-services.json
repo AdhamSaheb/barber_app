@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "218665064903",
+    "firebase_url": "https://mustashe-barbershop.firebaseio.com",
+    "project_id": "mustashe-barbershop",
+    "storage_bucket": "mustashe-barbershop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218665064903:android:66e0e44d0c16294f36e1e2",
+        "android_client_info": {
+          "package_name": "com.adhamsaheb.sample_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218665064903-5ppjbig0ia22up9ki8eqo871rdcedlll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUF5Z_7YJe1f4SwWP_nj-vrmnpaqZNjoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218665064903-5ppjbig0ia22up9ki8eqo871rdcedlll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
