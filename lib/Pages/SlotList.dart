@@ -36,8 +36,9 @@ class _SlotListState extends State<SlotList> {
                 children: <Widget>[
                   //Text('Reservation Successful !'),
                   Text(
-                      "Thank you ! Check Murads's tab to see if Murad confirms your reservation at " +
-                          time),
+                      "Thank you ! We will send you a message if your reservation at " +
+                          time +
+                          " is confirmed !"),
                 ],
               ),
             ),
@@ -64,10 +65,6 @@ class _SlotListState extends State<SlotList> {
 
     final _formKey = GlobalKey<FormState>();
     final slots = Provider.of<List<Slot>>(context);
-
-    //  slots.forEach((slot) {
-    //    DatabaseService().init(slot.time);
-    //  });
 
     return (slots == null)
         ? Loading()
@@ -111,8 +108,8 @@ class _SlotListState extends State<SlotList> {
                     height: 50,
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        hintText: 'Where can I reach you ? ',
-                        labelText: '0522222222',
+                        hintText: 'Where can We reach you ? ',
+                        labelText: '0524215222',
                       ),
                       validator: (value) {
                         if (!isNumeric(value))

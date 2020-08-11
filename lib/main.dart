@@ -11,7 +11,6 @@ import 'package:sample_app/Pages/wrapper.dart';
 import 'package:sample_app/SecondChairPages/Booking2.dart';
 import 'package:sample_app/SecondChairPages/Query2.dart';
 import 'package:sample_app/Services/authentication.dart';
-import 'Pages/Home.dart';
 import 'Pages/Loading.dart';
 import 'Pages/Booking.dart';
 // import 'Pages/About.dart';
@@ -26,15 +25,11 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         initialRoute: '/wrapper',
-        //home: Home(),
         routes: {
-          //'/' : (context) => Loading(),
           '/login': (context) => LoginPage(),
           '/wrapper': (context) => Wrapper(),
-          '/home': (context) => Home(),
           '/homeAlternate': (context) => HomeAlternate(),
           '/homeAdmin': (context) => HomeAdmin(),
-          // '/about': (context) => About(),
           '/booking': (context) => Booking(),
           '/booking2': (context) => Booking2(),
           '/loading': (context) => Loading(),

@@ -16,44 +16,47 @@ class Reservation extends StatelessWidget {
     if (slot.isPending() == true) return PendingSlot(slot: slot);
     return (slot.isReserved() == false)
         ? FreeSlot(slot: slot)
-        : RaisedButton(
+        : Container(
             // container instead of button
-            onPressed: () => {
-              FirebaseAuth.instance.currentUser().then((value) => {
-                    if (value != null)
-                      {
-                        //Implement removing a reservation here
-                        print('Not null!')
-                      }
-                  })
-            },
+            // onPressed: () => {
+            //   FirebaseAuth.instance.currentUser().then((value) => {
+            //         if (value != null)
+            //           {
+            //             //Implement removing a reservation here
+            //             print('Not null!')
+            //           }
+            //       })
+            // },
             child: Card(
+                elevation: 0,
                 child: Container(
-              width: double.infinity,
-              height: 100,
-              color: Colors.red[900],
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      slot.time,
-                      style: TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  width: double.infinity,
+                  height: 100,
+                  color: Colors.red[900],
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Text(
-                          slot.name,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          slot.time,
+                          style: TextStyle(color: Colors.white, fontSize: 30),
                         ),
-                        Text(
-                          slot.phone,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              slot.name,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            Text(
+                              slot.phone,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ]),
-            )),
+                      ]),
+                )),
           );
   }
 }

@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "218665064903",
-    "firebase_url": "https://mustashe-barbershop.firebaseio.com",
-    "project_id": "mustashe-barbershop",
-    "storage_bucket": "mustashe-barbershop.appspot.com"
+    "project_number": "1081781411679",
+    "firebase_url": "https://mustache-barbershop.firebaseio.com",
+    "project_id": "mustache-barbershop",
+    "storage_bucket": "mustache-barbershop.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:218665064903:android:66e0e44d0c16294f36e1e2",
+        "mobilesdk_app_id": "1:1081781411679:android:306439c9a6f8a5544e60ea",
         "android_client_info": {
-          "package_name": "com.adhamsaheb.sample_app"
+          "package_name": "com.mustachebarbershop.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "218665064903-5ppjbig0ia22up9ki8eqo871rdcedlll.apps.googleusercontent.com",
+          "client_id": "1081781411679-o24e2aifnnilv2a9iqc14ktoqo5gh7c9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUF5Z_7YJe1f4SwWP_nj-vrmnpaqZNjoc"
+          "current_key": "AIzaSyBKqLAt3L56kSV_QeFskBPE7udRQI-o42A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "218665064903-5ppjbig0ia22up9ki8eqo871rdcedlll.apps.googleusercontent.com",
+              "client_id": "1081781411679-o24e2aifnnilv2a9iqc14ktoqo5gh7c9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
