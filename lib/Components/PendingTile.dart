@@ -84,11 +84,11 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                       widget.slot.name,
                                       widget.slot.phone,
                                       widget.slot.time);
-                                  // var recipient = new List<String>();
-                                  // recipient.add(widget.slot.phone);
-                                  // _sendSMS(confirmationMsg, recipient);
-                                  FlutterOpenWhatsapp.sendSingleMessage(
-                                      "0546218681", "Hello");
+                                  var recipient = new List<String>();
+                                  recipient.add(widget.slot.phone);
+                                  _sendSMS(confirmationMsg, recipient);
+                                  // FlutterOpenWhatsapp.sendSingleMessage(
+                                  //     "0546218681", "Hello");
                                 },
                                 child: Text("Confirm",
                                     style: TextStyle(color: Colors.white)),
