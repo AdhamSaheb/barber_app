@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sample_app/Pages/Closed.dart';
+import 'package:sample_app/Pages/Notyet.dart';
 import 'package:sample_app/SecondChairPages/MyForm2.dart';
 
 String getTime() {
@@ -16,46 +18,50 @@ class Booking2 extends StatefulWidget {
 class _Booking2State extends State<Booking2> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.0),
-        child: AppBar(
-          elevation: 0,
-          leading: BackButton(
-            color: Colors.black,
-          ),
-          backgroundColor: Colors.transparent,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                color: Colors.black87,
-                width: double.infinity,
-                margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  getTime(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'ChelseaMarket',
-                    fontSize: 30,
-                    color: Colors.white,
+    return (DateTime.now().weekday == 7)
+        ? Closed()
+        : (DateTime.now().hour < 10)
+            ? NotYet()
+            : Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(50.0),
+                  child: AppBar(
+                    elevation: 0,
+                    leading: BackButton(
+                      color: Colors.black,
+                    ),
+                    backgroundColor: Colors.transparent,
                   ),
                 ),
-              ), //this is where the black box ends
-              SizedBox(height: 20),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.all(10),
-                child: MyForm2(),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                body: SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          color: Colors.black87,
+                          width: double.infinity,
+                          margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            getTime(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'ChelseaMarket',
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ), //this is where the black box ends
+                        SizedBox(height: 20),
+                        Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.all(10),
+                          child: MyForm2(),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
   }
 }

@@ -42,9 +42,9 @@ android {
         //minSdkVersion setup.minSdk
         applicationId "com.mustachebarbershop.com"
         targetSdkVersion 28
-        minSdkVersion 26
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 21
+        versionCode 1
+        versionName '1.0'
     }
 
 

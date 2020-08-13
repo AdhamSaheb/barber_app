@@ -4,9 +4,9 @@ import 'package:sample_app/Models/Slot.dart';
 //Tile inside the form
 class SlotTile extends StatefulWidget {
   @override
+  SlotTile({this.slot, this.selected});
   final Slot slot;
   final bool selected;
-  SlotTile({this.slot, this.selected});
 
   @override
   _SlotTileState createState() => _SlotTileState();

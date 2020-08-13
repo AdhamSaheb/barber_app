@@ -7,6 +7,7 @@ import 'package:sample_app/Components/Pending.dart';
 import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SlotList extends StatefulWidget {
   @override
@@ -46,7 +47,8 @@ class _SlotListState extends State<SlotList> {
               FlatButton(
                 child: Text('Continue'),
                 onPressed: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                  // Navigator.popUntil(context, ModalRoute.withName('/initial'));
+                  Navigator.pushReplacementNamed(context, '/wrapper');
                 },
               ),
             ],

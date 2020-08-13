@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/Services/Database.dart';
 
 class HomeAlternate extends StatelessWidget {
   // Color gradientStart = Colors.blue[200]; //Change start gradient color here
@@ -55,7 +54,7 @@ class HomeAlternate extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -126,7 +125,7 @@ class HomeAlternate extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'Random text that no one reads',
+                            'Reserve a haircut with Murad',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -167,7 +166,7 @@ class HomeAlternate extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'Random Text the nobody ever reads',
+                            'Reserve a haircut with Eddy',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
@@ -211,7 +210,7 @@ class HomeAlternate extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'Random Text the nobody ever reads',
+                            'Sign In to Confirm/Decline bookings',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,

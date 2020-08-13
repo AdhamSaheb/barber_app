@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sample_app/Components/FreeSlot.dart';
 import 'package:sample_app/Components/pendingSlot.dart';
 import 'package:sample_app/Models/Slot.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sample_app/Services/authentication.dart';
 
 //Inside the Schedule
 
 class Reservation extends StatelessWidget {
   @override
-  final Slot slot;
   Reservation({this.slot});
+  final Slot slot;
 
   Widget build(BuildContext context) {
     if (slot.isPending() == true) return PendingSlot(slot: slot);

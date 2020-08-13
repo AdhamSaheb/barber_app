@@ -5,8 +5,8 @@ import 'package:sample_app/Models/Slot.dart';
 
 class PendingSlot extends StatelessWidget {
   @override
-  final Slot slot;
   PendingSlot({this.slot});
+  final Slot slot;
   Widget build(BuildContext context) {
     return Container(
       width: 50,

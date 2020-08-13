@@ -45,6 +45,14 @@ dev_dependencies:
   firebase_auth: ^0.16.1
   flutter_sms: ^0.0.3
   characters: ^1.0.0
+  intro_slider: ^2.3.1
+  shared_preferences: ^0.5.8
+  after_layout: ^1.0.7+2
+  flutter_open_whatsapp: ^0.1.2
+  intl_phone_number_input: ^0.4.6+2
+
+
+
 
 # dependency_overrides:
 # image: '2.1.14'

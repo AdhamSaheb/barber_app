@@ -1,32 +1,32 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+
 class PendingTileBuilder extends StatefulWidget {
   @override
+  PendingTileBuilder({this.slot, this.collection});
   final Slot slot;
   final String collection;
-  PendingTileBuilder({this.slot, this.collection});
 
   @override
   _PendingTileBuilderState createState() => _PendingTileBuilderState();
 }
 
 class _PendingTileBuilderState extends State<PendingTileBuilder> {
-  String _message;
+  // String _message;
   String confirmationMsg =
       'You\'re reservation at Mustache Barbershop has been approved ';
   String declinedMsg =
       'You\'re reservation has been declined, please try another time , were sorry ';
 
   void _sendSMS(String message, List<String> recipents) async {
-    String _result =
-        await FlutterSms.sendSMS(message: message, recipients: recipents);
-    setState(() => _message = _result);
+    // String _result =
+    await FlutterSms.sendSMS(message: message, recipients: recipents);
+    // setState(() => _message = _result);
   }
 
   Widget build(BuildContext context) {
@@ -84,9 +84,11 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                       widget.slot.name,
                                       widget.slot.phone,
                                       widget.slot.time);
-                                  var recipient = new List<String>();
-                                  recipient.add(widget.slot.phone);
-                                  _sendSMS(confirmationMsg, recipient);
+                                  // var recipient = new List<String>();
+                                  // recipient.add(widget.slot.phone);
+                                  // _sendSMS(confirmationMsg, recipient);
+                                  FlutterOpenWhatsapp.sendSingleMessage(
+                                      "0546218681", "Hello");
                                 },
                                 child: Text("Confirm",
                                     style: TextStyle(color: Colors.white)),
@@ -101,9 +103,9 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                 onPressed: () {
                                   DatabaseService().declineReservation(
                                       this.widget.collection, widget.slot.time);
-                                  var recipient = new List<String>();
-                                  recipient.add(widget.slot.phone);
-                                  _sendSMS(declinedMsg, recipient);
+                                  // var recipient = new List<String>();
+                                  // recipient.add(widget.slot.phone);
+                                  // _sendSMS(declinedMsg, recipient);
                                 },
                                 child: Text(
                                   "Decline",

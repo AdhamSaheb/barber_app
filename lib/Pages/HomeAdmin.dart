@@ -117,7 +117,7 @@ class HomeAdmin extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'HOW CAN WE HELP YOU ?',
+                            'Hope you\'re having a good day',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -157,7 +157,7 @@ class HomeAdmin extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Random text that no one reads',
+                                'Schedule an eating break',
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -198,7 +198,7 @@ class HomeAdmin extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Random Text the nobody ever reads',
+                                'Pending reservations for Murad',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
@@ -242,7 +242,7 @@ class HomeAdmin extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Random Text the nobody ever reads',
+                                'Pending reservations for Eddy',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
