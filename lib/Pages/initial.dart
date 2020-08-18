@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:flutter/material.dart';
 import 'package:sample_app/Intro/IntroScreen.dart';
 import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Pages/wrapper.dart';

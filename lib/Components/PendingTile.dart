@@ -4,8 +4,6 @@ import 'package:flutter_sms/flutter_sms.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
-
 class PendingTileBuilder extends StatefulWidget {
   @override
   PendingTileBuilder({this.slot, this.collection});

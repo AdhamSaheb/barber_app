@@ -7,45 +7,15 @@ class HomeAlternate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[100],
-
         // appBar: AppBar(
-        //   backgroundColor: Colors.white10,
+        //   backgroundColor: Colors.black,
         //   elevation: 0,
         //   iconTheme: new IconThemeData(color: Colors.black),
-        // ),
-        // drawer: Drawer(
-        //   // Add a ListView to the drawer. This ensures the user can scroll
-        //   // through the options in the drawer if there isn't enough vertical
-        //   // space to fit everything.
-        //   child: ListView(
-        //     // Important: Remove any padding from the ListView.
-        //     padding: EdgeInsets.zero,
-        //     children: <Widget>[
-        //       DrawerHeader(
-        //         //padding: EdgeInsets.all(15),
-        //         child: Text(
-        //           'Barbers Menu',
-        //           style: TextStyle(
-        //               color: Colors.white, fontFamily: 'Anton', fontSize: 20),
-        //         ),
-        //         decoration: BoxDecoration(
-        //             //color: Colors.black,
-        //             image: DecorationImage(
-        //                 image: AssetImage('Images/menu-background.jpg'),
-        //                 fit: BoxFit.fill)),
-        //       ),
-        //       ListTile(
-        //         leading: Icon(Icons.input),
-        //         title: Text(
-        //           'Login',
-        //           style: TextStyle(
-        //               color: Colors.black, fontFamily: 'Anton', fontSize: 20),
-        //         ),
-        //         onTap: () {
-        //           Navigator.pushNamed(context, '/login');
-        //         },
-        //       ),
-        //     ],
+        //   centerTitle: true,
+        //   title: Image(
+        //     image: AssetImage('Images/logo.png'),
+        //     width: 50,
+        //     height: 50,
         //   ),
         // ),
         body: Container(
@@ -56,6 +26,11 @@ class HomeAlternate extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
+              // Image(
+              //   image: AssetImage('Images/logo.png'),
+              //   width: 150,
+              //   height: 150,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -134,7 +109,7 @@ class HomeAlternate extends StatelessWidget {
                         ],
                       ),
                       Image(
-                        image: AssetImage('Images/machine.png'),
+                        image: AssetImage('Images/Murad.png'),
                         height: 50,
                         width: 50,
                       ),
@@ -176,7 +151,7 @@ class HomeAlternate extends StatelessWidget {
                         ],
                       ),
                       Image(
-                        image: AssetImage('Images/moos.png'),
+                        image: AssetImage('Images/eddy.png'),
                         height: 50,
                         width: 50,
                       ),

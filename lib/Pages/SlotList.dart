@@ -1,4 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_app/Components/SlotTile.dart';
@@ -136,9 +137,10 @@ class _SlotListState extends State<SlotList> {
                   padding: EdgeInsets.all(12),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
-                      childAspectRatio: 1.2,
+                      childAspectRatio: 1,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
+                  scrollDirection: Axis.horizontal,
                   itemCount: slots.length,
                   itemBuilder: (context, index) {
                     return (slots[index].isReserved() == true)
@@ -148,6 +150,9 @@ class _SlotListState extends State<SlotList> {
                             : GestureDetector(
                                 onTap: () => setState(() {
                                   choices = List.filled(18, false);
+                                  // for (var i = 0; i < choices.length; i++) {
+                                  //   if (choices[i] == true) choices[i] = false;
+                                  // }
                                   choices[index] = true;
                                   time = slots[index].time;
                                 }),
@@ -158,6 +163,7 @@ class _SlotListState extends State<SlotList> {
                   },
                 ),
               ),
+
               RaisedButton(
                 color: Colors.black,
                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),

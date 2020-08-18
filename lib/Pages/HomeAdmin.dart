@@ -198,7 +198,7 @@ class HomeAdmin extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Pending reservations for Murad',
+                                'Murad\'s Schedule for today',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
@@ -208,7 +208,7 @@ class HomeAdmin extends StatelessWidget {
                             ],
                           ),
                           Image(
-                            image: AssetImage('Images/person.png'),
+                            image: AssetImage('Images/Murad.png'),
                             height: 50,
                             width: 50,
                           ),
@@ -242,7 +242,7 @@ class HomeAdmin extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Pending reservations for Eddy',
+                                'Eddy\'s Schedule for today',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
@@ -252,7 +252,7 @@ class HomeAdmin extends StatelessWidget {
                             ],
                           ),
                           Image(
-                            image: AssetImage('Images/person.png'),
+                            image: AssetImage('Images/eddy.png'),
                             height: 50,
                             width: 50,
                           ),

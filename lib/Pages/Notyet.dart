@@ -23,7 +23,7 @@ class NotYet extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  'OH No !',
+                  'Not Yet !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 45,
@@ -38,7 +38,7 @@ class NotYet extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  'Reservation does NOT start before 11AM, Sorry !',
+                  'Reservation does NOT start before 10AM, Sorry !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,

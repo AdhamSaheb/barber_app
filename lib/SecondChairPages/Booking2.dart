@@ -6,7 +6,7 @@ import 'package:sample_app/SecondChairPages/MyForm2.dart';
 
 String getTime() {
   DateTime now = DateTime.now();
-  String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+  String formattedDate = DateFormat('EEEE yyyy-MM-dd – kk:mm').format(now);
   return formattedDate;
 }
 
@@ -38,7 +38,10 @@ class _Booking2State extends State<Booking2> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          color: Colors.black87,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black87),
+                          // color: Colors.black87,
                           width: double.infinity,
                           margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
                           padding: EdgeInsets.all(20),
@@ -47,7 +50,7 @@ class _Booking2State extends State<Booking2> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'ChelseaMarket',
-                              fontSize: 30,
+                              fontSize: 20,
                               color: Colors.white,
                             ),
                           ),

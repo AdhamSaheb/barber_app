@@ -1,5 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_app/Components/SlotTile.dart';
 import 'package:sample_app/Components/Taken.dart';
@@ -127,10 +128,12 @@ class _SlotList2State extends State<SlotList2> {
                   primary: false,
                   padding: EdgeInsets.all(12),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 1.2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
+                    crossAxisCount: 4,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  scrollDirection: Axis.horizontal,
                   itemCount: slots.length,
                   itemBuilder: (context, index) {
                     return (slots[index].isReserved() == true)
