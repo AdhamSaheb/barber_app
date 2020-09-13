@@ -4,21 +4,20 @@ import 'package:sample_app/Components/Reservation.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Pages/Loading.dart';
 
-
-
 class ReservationList2 extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     final slots = Provider.of<List<Slot>>(context);
     //return Text('Hi');
-    return (slots==null) ? Loading() : ListView.builder(
-      padding: EdgeInsets.all(5),
-      itemCount: slots.length,
-      itemBuilder: (context, index) => Reservation(slot:slots[index]),
-      
-    );
+    return (slots == null)
+        ? Loading()
+        : ListView.builder(
+            padding: EdgeInsets.all(5),
+            itemCount: slots.length,
+            itemBuilder: (context, index) => Reservation(
+              slot: slots[index],
+              collection: 'slotcollection2',
+            ),
+          );
   }
 }
-

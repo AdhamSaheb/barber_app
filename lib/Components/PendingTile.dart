@@ -1,35 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
+import 'package:sample_app/Components/Taken.dart';
 
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 
 class PendingTileBuilder extends StatefulWidget {
-  @override
-  PendingTileBuilder({this.slot, this.collection});
   final Slot slot;
   final String collection;
+
+  @override
+  PendingTileBuilder({this.slot, this.collection});
 
   @override
   _PendingTileBuilderState createState() => _PendingTileBuilderState();
 }
 
 class _PendingTileBuilderState extends State<PendingTileBuilder> {
-  // String _message;
-  String confirmationMsg =
-      'You\'re reservation at Mustache Barbershop has been approved ';
-  String declinedMsg =
-      'You\'re reservation has been declined, please try another time , were sorry ';
-
   void _sendSMS(String message, List<String> recipents) async {
     // String _result =
     await FlutterSms.sendSMS(message: message, recipients: recipents);
     // setState(() => _message = _result);
   }
 
+  String to12format(String time) {
+    var times = time.split(':');
+    var temp = int.parse(times[0]);
+
+    return (temp > 12)
+        ? (temp - 12).toString() + ":" + times[1]
+        : time.toString();
+  }
+
   Widget build(BuildContext context) {
+    // String _message;
+    String confirmationMsg = widget.slot.name +
+        " ! Your reservation at Mustache Barbershop at " +
+        to12format(widget.slot.time) +
+        " has been approved ";
+    String declinedMsg =
+        'Your reservation has been declined, please try another time , were sorry ';
     return (widget.slot.isPending() == false)
-        ? Container()
+        ? Container(
+            height: 0.2,
+          )
         : Padding(
             padding: const EdgeInsets.all(5.0),
             child: Card(
@@ -46,7 +60,7 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        widget.slot.time,
+                        to12format(widget.slot.time),
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 35,
@@ -101,9 +115,9 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                 onPressed: () {
                                   DatabaseService().declineReservation(
                                       this.widget.collection, widget.slot.time);
-                                  // var recipient = new List<String>();
-                                  // recipient.add(widget.slot.phone);
-                                  // _sendSMS(declinedMsg, recipient);
+                                  var recipient = new List<String>();
+                                  recipient.add(widget.slot.phone);
+                                  _sendSMS(declinedMsg, recipient);
                                 },
                                 child: Text(
                                   "Decline",

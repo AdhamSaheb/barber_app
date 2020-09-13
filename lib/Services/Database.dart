@@ -66,9 +66,25 @@ class DatabaseService {
     }
   }
 
+//used to remove a false/mistake reservation
+  void removeReservation(String collection, String time) {
+    final now = DateTime.now();
+    if (collection == 'slotcollection') {
+      slotcollection.document(time).updateData({
+        'pending': false,
+        'reservationTime': DateTime(now.year, now.month, now.day - 1),
+      });
+    } else {
+      slotcollection2.document(time).updateData({
+        'pending': false,
+        'reservationTime': DateTime(now.year, now.month, now.day - 1),
+      });
+    }
+  }
+
   void init() {
     var times = [
-      '11:30',
+      // '11:30',
       '12:00',
       '12:30',
       '13:00',
@@ -91,7 +107,7 @@ class DatabaseService {
     times.forEach((time) {
       final now = DateTime.now();
 
-      slotcollection.document(time).setData({
+      slotcollection2.document(time).setData({
         'pending': false,
         'Name': 'Name',
         'Phone': '222222',

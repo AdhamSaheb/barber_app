@@ -12,6 +12,15 @@ class SlotTile extends StatefulWidget {
   _SlotTileState createState() => _SlotTileState();
 }
 
+String to12format(String time) {
+  var times = time.split(':');
+  var temp = int.parse(times[0]);
+
+  return (temp > 12)
+      ? (temp - 12).toString() + ":" + times[1]
+      : time.toString();
+}
+
 class _SlotTileState extends State<SlotTile> {
   Color myColor = Colors.red[900];
 
@@ -36,7 +45,9 @@ class _SlotTileState extends State<SlotTile> {
       //margin: EdgeInsets.all(10),
 
       child: Text(
-        (widget.slot.isReserved() == false) ? widget.slot.time : 'Taken',
+        (widget.slot.isReserved() == false)
+            ? to12format(widget.slot.time)
+            : 'Taken',
         //widget.slot.time,
         textAlign: TextAlign.center,
         style: TextStyle(

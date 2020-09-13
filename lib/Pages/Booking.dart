@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:sample_app/Pages/Closed.dart';
 import 'package:sample_app/Pages/MyForm.dart';
 import 'package:sample_app/Pages/Notyet.dart';
+import 'package:sample_app/Services/Database.dart';
 
 String getTime() {
   DateTime now = DateTime.now();
@@ -20,7 +21,7 @@ class _BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     return (DateTime.now().weekday == 7)
         ? Closed()
-        : (DateTime.now().hour < 10)
+        : (DateTime.now().hour < 5 || DateTime.now().hour > 19)
             ? NotYet()
             : Scaffold(
                 appBar: PreferredSize(

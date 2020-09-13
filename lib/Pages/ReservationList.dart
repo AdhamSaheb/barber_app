@@ -14,7 +14,10 @@ class ReservationList extends StatelessWidget {
         : ListView.builder(
             padding: EdgeInsets.all(10),
             itemCount: slots.length,
-            itemBuilder: (context, index) => Reservation(slot: slots[index]),
+            itemBuilder: (context, index) => Reservation(
+              slot: slots[index],
+              collection: 'slotcollection',
+            ),
           );
   }
 }
