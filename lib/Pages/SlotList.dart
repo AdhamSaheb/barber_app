@@ -1,4 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_app/Components/SlotTile.dart';
@@ -8,6 +10,7 @@ import 'package:sample_app/Pages/Full.dart';
 import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
+import 'package:connectivity/connectivity.dart';
 
 class SlotList extends StatefulWidget {
   @override
@@ -20,6 +23,7 @@ String name = "";
 String time = "";
 final nameController = new TextEditingController();
 final phoneController = new TextEditingController();
+StreamSubscription subscription;
 
 class _SlotListState extends State<SlotList> {
   @override
@@ -28,12 +32,44 @@ class _SlotListState extends State<SlotList> {
     choices = List.filled(18, false);
     nameController.clear();
     phoneController.clear();
+    //subscribe to connection change
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none)
+        Navigator.pushReplacementNamed(context, '/noConnection');
+    });
+  }
+
+  // Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+
+    subscription.cancel();
+  }
+
+  Future isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      // I am connected to a mobile network or wifi
+      return true;
+    } else if (connectivityResult == ConnectivityResult.none) {
+      // I am not connected
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final slots = Provider.of<List<Slot>>(context);
+
+    isConnected().then((value) => {
+          if (value == false)
+            Navigator.pushReplacementNamed(context, '/noConnection')
+        });
 
     // this will show the dialoug after reservation
     Future<void> _showMyDialog() async {
@@ -42,15 +78,14 @@ class _SlotListState extends State<SlotList> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Reservation Successfull'),
+            title: Text('Wait for Approval '),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   //Text('Reservation Successful !'),
-                  Text(
-                      "Thank you ! We will send you a message if your reservation at " +
-                          time +
-                          " is confirmed !"),
+                  Text("We will send you an sms if your reservation at " +
+                      time +
+                      " is confirmed !"),
                 ],
               ),
             ),
@@ -180,13 +215,14 @@ class _SlotListState extends State<SlotList> {
                   SizedBox(
                     height: 20,
                   ),
+
                   Expanded(
                     child: GridView.builder(
                       primary: false,
                       padding: EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
-                          childAspectRatio: 1,
+                          childAspectRatio: 1.1,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10),
                       scrollDirection: Axis.horizontal,
@@ -215,9 +251,9 @@ class _SlotListState extends State<SlotList> {
 
                   RaisedButton(
                     color: Colors.black,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
+                        borderRadius: BorderRadius.circular(15.0),
                         side: BorderSide(color: Colors.black)),
                     onPressed: () {
                       if (choices.indexOf(true) != -1) {

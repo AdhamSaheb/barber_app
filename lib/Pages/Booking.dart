@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/Pages/Closed.dart';
+import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Pages/MyForm.dart';
 import 'package:sample_app/Pages/Notyet.dart';
-import 'package:sample_app/Services/Database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 String getTime() {
   DateTime now = DateTime.now();
@@ -17,11 +18,35 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  dynamic times;
+
+  Future<dynamic> getTimes() async {
+    final DocumentReference document =
+        Firestore.instance.collection("Times").document('times');
+
+    await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
+      setState(() {
+        times = snapshot.data;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getTimes();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (times == null) return Loading();
+
+    if (times['closed'] == true) return Closed();
+
     return (DateTime.now().weekday == 7)
         ? Closed()
-        : (DateTime.now().hour < 5 || DateTime.now().hour > 19)
+        : (DateTime.now().hour < times['start'] ||
+                DateTime.now().hour >= times['end'])
             ? NotYet()
             : Scaffold(
                 appBar: PreferredSize(

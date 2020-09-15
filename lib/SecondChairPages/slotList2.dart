@@ -1,4 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:sample_app/Pages/Full.dart';
 import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
+import 'package:connectivity/connectivity.dart';
 
 class SlotList2 extends StatefulWidget {
   @override
@@ -23,6 +25,7 @@ String name = "";
 String time = "";
 final nameController = new TextEditingController();
 final phoneController = new TextEditingController();
+StreamSubscription subscription;
 
 class _SlotList2State extends State<SlotList2> {
   @override
@@ -31,10 +34,42 @@ class _SlotList2State extends State<SlotList2> {
     choices = List.filled(18, false);
     nameController.clear();
     phoneController.clear();
+
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none)
+        Navigator.pushReplacementNamed(context, '/noConnection');
+    });
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+
+    subscription.cancel();
+  }
+
+  //check connection state
+  Future isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      // I am connected to a mobile network or wifi
+      return true;
+    } else if (connectivityResult == ConnectivityResult.none) {
+      // I am not connected
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    isConnected().then((value) => {
+          if (value == false)
+            Navigator.pushReplacementNamed(context, '/noConnection')
+        });
     // this will show the dialoug after reservation
     Future<void> _showMyDialog() async {
       return showDialog<void>(
@@ -42,15 +77,14 @@ class _SlotList2State extends State<SlotList2> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Reservation Successfull'),
+            title: Text('Wait for Approval'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   //Text('Reservation Successful !'),
-                  Text(
-                      "Thank you ! We will send you a message if your reservation at " +
-                          time +
-                          " is confirmed"),
+                  Text("We will send you a message if your reservation at " +
+                      time +
+                      " is confirmed"),
                 ],
               ),
             ),
@@ -181,7 +215,7 @@ class _SlotList2State extends State<SlotList2> {
                       padding: EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
-                        childAspectRatio: 1,
+                        childAspectRatio: 1.2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
                       ),

@@ -1,10 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_app/Components/toggle.dart';
 import 'package:sample_app/Services/authentication.dart';
+import 'package:flutter_picker/flutter_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //use stless to generate
 class HomeAdmin extends StatelessWidget {
   final AuthService _auth = AuthService();
+
+  showPickerNumber(BuildContext context) {
+    new Picker(
+        adapter: NumberPickerAdapter(data: [
+          NumberPickerColumn(begin: 5, end: 22),
+          NumberPickerColumn(begin: 12, end: 22),
+        ]),
+        delimiter: [
+          PickerDelimiter(
+              child: Container(
+            width: 30.0,
+            alignment: Alignment.center,
+            child: Icon(Icons.navigate_next),
+          ))
+        ],
+        hideHeader: true,
+        title: new Text("Open > Close"),
+        onConfirm: (Picker picker, List value) {
+          //start Time
+          print(picker.getSelectedValues()[0]);
+          //EndTime
+          print(picker.getSelectedValues()[1]);
+          //change the start and end time in database
+          Firestore.instance.collection('Times').document('times').updateData({
+            "start": (picker.getSelectedValues()[0]),
+            "end": (picker.getSelectedValues()[1])
+          });
+        }).showDialog(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +96,44 @@ class HomeAdmin extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, '/confirm2');
                     },
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.watch_later),
+                    title: Text(
+                      'Edit Times',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Anton',
+                          fontSize: 20),
+                    ),
+                    onTap: () {
+                      // Navigator.pushNamed(context, '/editTimes');
+                      showPickerNumber(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.cancel),
+                    title: Row(
+                      children: [
+                        Text(
+                          'Closed',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Anton',
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        ClosedToggler(),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
                   ),
                   ListTile(
                     leading: Icon(Icons.settings_power),

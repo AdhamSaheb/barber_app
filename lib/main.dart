@@ -11,6 +11,7 @@ import 'package:sample_app/Pages/LoginPage.dart';
 import 'package:sample_app/Pages/Notyet.dart';
 import 'package:sample_app/Pages/home-alternate.dart';
 import 'package:sample_app/Pages/initial.dart';
+import 'package:sample_app/Pages/noConnection.dart';
 import 'package:sample_app/Pages/wrapper.dart';
 import 'package:sample_app/SecondChairPages/Booking2.dart';
 import 'package:sample_app/SecondChairPages/Query2.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           '/initial': (context) => Initial(),
           '/closed': (context) => Closed(),
           '/notyet': (context) => NotYet(),
+          '/noConnection': (context) => noConnection(),
         },
       ),
     );

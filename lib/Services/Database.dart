@@ -21,7 +21,7 @@ class DatabaseService {
     }).toList();
   }
 
-  void updatedata(String name, String phone, String time) {
+  void updatedata(String name, String phone, String time) async {
     slotcollection.document(time).updateData({
       'Phone': phone,
       'Name': name,
