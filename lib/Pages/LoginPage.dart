@@ -27,15 +27,19 @@ class _LoginPageState extends State<LoginPage> {
               backgroundColor: Colors.black,
               elevation: 1.0,
               title: Text('Sign in'),
+              centerTitle: true,
             ),
             body: SingleChildScrollView(
               child: Column(children: <Widget>[
                 Padding(
                   padding: EdgeInsets.fromLTRB(5, 50, 5, 5),
-                  child: Image(
-                    width: 200,
-                    height: 250,
-                    image: AssetImage('Images/barber2.png'),
+                  child: Hero(
+                    tag: 'barber',
+                    child: Image(
+                      width: 200,
+                      height: 250,
+                      image: AssetImage('Images/barber2.png'),
+                    ),
                   ),
                 ),
                 Container(

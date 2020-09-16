@@ -1,4 +1,3 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -45,7 +44,6 @@ class _SlotListState extends State<SlotList> {
   @override
   dispose() {
     super.dispose();
-
     subscription.cancel();
   }
 
@@ -78,12 +76,12 @@ class _SlotListState extends State<SlotList> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Wait for Approval '),
+            title: Text('WAIT FOR APPROVAL !'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   //Text('Reservation Successful !'),
-                  Text("We will send you an sms if your reservation at " +
+                  Text("We will send you an SMS if your reservation at " +
                       time +
                       " is confirmed !"),
                 ],
@@ -157,125 +155,121 @@ class _SlotListState extends State<SlotList> {
             ? Full()
             : Form(
                 key: _formKey,
-                child: Column(children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.person),
-                      Container(
-                        width: 250,
-                        height: 50,
-                        child: TextFormField(
-                          controller: nameController,
-                          decoration: const InputDecoration(
-                            hintText: 'What do people call you?',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Icon(Icons.person),
+                          Container(
+                            width: 250,
+                            height: 50,
+                            child: TextFormField(
+                              controller: nameController,
+                              decoration: const InputDecoration(
+                                hintText: 'What do people call you?',
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty)
+                                  return "Please Enter a Valid Name";
+                                return null;
+                              },
+                            ),
                           ),
-                          validator: (value) {
-                            if (value.isEmpty)
-                              return "Please Enter a Valid Name";
-                            return null;
-                          },
+                        ],
+                      ),
+                      //SizedBox(height:10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Icon(Icons.phone),
+                          Container(
+                            width: 250,
+                            height: 50,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Where can We reach you ? ',
+                              ),
+                              validator: (value) {
+                                if (!isNumeric(value))
+                                  return "Enter a valid Phone number ";
+                                return null;
+                              },
+                              controller: phoneController,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     name=value;
-                          //   });
-                          // },
+                      Expanded(
+                        child: GridView.builder(
+                          primary: false,
+                          padding: EdgeInsets.all(12),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            childAspectRatio: 1.3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: slots.length,
+                          itemBuilder: (context, index) {
+                            return (slots[index].isReserved() == true)
+                                ? Taken()
+                                : (slots[index].isPending() == true)
+                                    ? Pending()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          if (_formKey.currentState
+                                              .validate()) {
+                                            DatabaseService().updatedata(
+                                                nameController.text,
+                                                phoneController.text,
+                                                slots[index].time);
+                                            _showMyDialog();
+                                            _formKey.currentState.reset();
+                                          }
+                                        },
+                                        child: SlotTile(
+                                            slot: slots[index],
+                                            selected: choices[index]),
+                                      );
+                          },
                         ),
                       ),
-                    ],
-                  ),
-                  //SizedBox(height:10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(Icons.phone),
-                      Container(
-                        width: 250,
-                        height: 50,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Where can We reach you ? ',
-                          ),
-                          validator: (value) {
-                            if (!isNumeric(value))
-                              return "Enter a valid Phone number ";
-                            return null;
-                          },
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     phone=value;
-                          //   });
-                          // }
-                          controller: phoneController,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
 
-                  Expanded(
-                    child: GridView.builder(
-                      primary: false,
-                      padding: EdgeInsets.all(12),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 1.1,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: slots.length,
-                      itemBuilder: (context, index) {
-                        return (slots[index].isReserved() == true)
-                            ? Taken()
-                            : (slots[index].isPending() == true)
-                                ? Pending()
-                                : GestureDetector(
-                                    onTap: () => setState(() {
-                                      choices = List.filled(18, false);
-                                      // for (var i = 0; i < choices.length; i++) {
-                                      //   if (choices[i] == true) choices[i] = false;
-                                      // }
-                                      choices[index] = true;
-                                      time = slots[index].time;
-                                    }),
-                                    child: SlotTile(
-                                        slot: slots[index],
-                                        selected: choices[index]),
-                                  );
-                      },
-                    ),
-                  ),
-
-                  RaisedButton(
-                    color: Colors.black,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        side: BorderSide(color: Colors.black)),
-                    onPressed: () {
-                      if (choices.indexOf(true) != -1) {
-                        if (_formKey.currentState.validate()) {
-                          DatabaseService().updatedata(
-                              nameController.text, phoneController.text, time);
-                          _showMyDialog();
-                          _formKey.currentState.reset();
-                        }
-                      } else {
-                        _showSelectTimeDialog();
-                      }
-                    },
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                ]),
+                      // RaisedButton(
+                      //   color: Colors.black,
+                      //   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //       side: BorderSide(color: Colors.black)),
+                      //   onPressed: () {
+                      //     if (choices.indexOf(true) != -1) {
+                      //       if (_formKey.currentState.validate()) {
+                      //         DatabaseService().updatedata(nameController.text,
+                      //             phoneController.text, time);
+                      //         _showMyDialog();
+                      //         _formKey.currentState.reset();
+                      //       }
+                      //     } else {
+                      //       _showSelectTimeDialog();
+                      //     }
+                      //   },
+                      //   child: Text(
+                      //     'Confirm',
+                      //     style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 25,
+                      //     ),
+                      //   ),
+                      // ),
+                    ]),
               );
   }
 }

@@ -64,26 +64,39 @@ class _BookingState extends State<Booking> {
                     child: Center(
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black87),
-                            // color: Colors.black87,
-                            width: double.infinity,
-                            margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            padding: EdgeInsets.all(20),
-                            child: Text(
-                              getTime(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'ChelseaMarket',
-                                fontSize: 20,
-                                color: Colors.white,
+                          Column(
+                            children: [
+                              Hero(
+                                tag: 'murad',
+                                child: Image(
+                                  image: AssetImage('Images/Murad.png'),
+                                  height: 100,
+                                  width: 90,
+                                ),
                               ),
-                            ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.black87),
+                                // color: Colors.black87,
+                                // width: double.infinity,
+                                margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  getTime(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'ChelseaMarket',
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ), //this is where the black box ends
 
                           SizedBox(height: 20),
+
                           Container(
                             width: double.infinity,
                             margin: EdgeInsets.all(10),

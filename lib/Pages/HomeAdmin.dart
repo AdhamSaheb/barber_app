@@ -253,7 +253,7 @@ class HomeAdmin extends StatelessWidget {
                       color: Colors.white,
                       padding: EdgeInsets.all(20),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,10 +277,13 @@ class HomeAdmin extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Image(
-                            image: AssetImage('Images/Murad.png'),
-                            height: 50,
-                            width: 50,
+                          Hero(
+                            tag: 'Murad',
+                            child: Image(
+                              image: AssetImage('Images/Murad.png'),
+                              height: 50,
+                              width: 50,
+                            ),
                           ),
                         ],
                       ),
@@ -321,10 +324,13 @@ class HomeAdmin extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Image(
-                            image: AssetImage('Images/eddy.png'),
-                            height: 50,
-                            width: 50,
+                          Hero(
+                            tag: 'eddy',
+                            child: Image(
+                              image: AssetImage('Images/eddy.png'),
+                              height: 50,
+                              width: 50,
+                            ),
                           ),
                         ],
                       ),

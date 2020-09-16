@@ -38,7 +38,7 @@ class NotYet extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  'Reservation does NOT start before 10AM, Sorry !',
+                  'Reservation has not been open yet, Sorry !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,

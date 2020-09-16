@@ -39,7 +39,7 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
         to12format(widget.slot.time) +
         " has been approved ";
     String declinedMsg =
-        'Your reservation has been declined, please try another time , were sorry ';
+        'Your reservation has been declined, please try another time , we\'re sorry ';
     return (widget.slot.isPending() == false)
         ? Container(
             height: 0.2,

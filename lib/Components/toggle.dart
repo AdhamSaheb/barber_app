@@ -39,6 +39,8 @@ class _ClosedTogglerState extends State<ClosedToggler> {
     return (times == null)
         ? Loading()
         : Switch(
+            activeColor: Colors.red[200],
+            activeTrackColor: Colors.red[200],
             value: times['closed'],
             onChanged: (value) {
               setState(() {

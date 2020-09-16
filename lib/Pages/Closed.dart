@@ -17,10 +17,10 @@ class Closed extends StatelessWidget {
         body: Container(
           child: Column(children: [
             SizedBox(
-              height: 50,
+              height: 60,
             ),
             Text(
-              'OH No !',
+              'We\'re Closed Today',
               style: TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
@@ -28,10 +28,10 @@ class Closed extends StatelessWidget {
             ),
             Image(image: AssetImage('Images/closed.png')),
             SizedBox(
-              height: 10,
+              height: 60,
             ),
             Text(
-              'Today is our day off ! We\'re sorry ',
+              'The Barbershop is not open today, apologies !',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20,

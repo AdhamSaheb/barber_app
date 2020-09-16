@@ -1,45 +1,31 @@
 import 'package:flutter/material.dart';
 
 class HomeAlternate extends StatelessWidget {
-  // Color gradientStart = Colors.blue[200]; //Change start gradient color here
-  // Color gradientEnd = Colors.grey[100]; //Change end gradient color here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[100],
-        // appBar: AppBar(
-        //   backgroundColor: Colors.black,
-        //   elevation: 0,
-        //   iconTheme: new IconThemeData(color: Colors.black),
-        //   centerTitle: true,
-        //   title: Image(
-        //     image: AssetImage('Images/logo.png'),
-        //     width: 50,
-        //     height: 50,
-        //   ),
-        // ),
         body: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(
-                height: 30,
+                height: 20,
               ),
-              // Image(
-              //   image: AssetImage('Images/logo.png'),
-              //   width: 150,
-              //   height: 150,
-              // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Image(
-                    image: AssetImage(
-                      'Images/barber.png',
+                  Hero(
+                    tag: 'barber',
+                    child: Image(
+                      image: AssetImage(
+                        'Images/barber.png',
+                      ),
+                      height: 200,
+                      width: 100,
                     ),
-                    height: 200,
-                    width: 100,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +63,20 @@ class HomeAlternate extends StatelessWidget {
                   ),
                 ],
               ),
+              //This row will have information
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Icon(
+              //       Icons.phone,
+              //       size: 20,
+              //     ),
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     Text('(+972) 52 8755988')
+              //   ],
+              // ),
               RaisedButton(
                   elevation: 5.0,
                   color: Colors.blue,
@@ -84,6 +84,14 @@ class HomeAlternate extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      Hero(
+                        tag: 'murad',
+                        child: Image(
+                          image: AssetImage('Images/Murad.png'),
+                          height: 70,
+                          width: 50,
+                        ),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -105,13 +113,8 @@ class HomeAlternate extends StatelessWidget {
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'ChelseaMarket'),
-                          )
+                          ),
                         ],
-                      ),
-                      Image(
-                        image: AssetImage('Images/Murad.png'),
-                        height: 50,
-                        width: 50,
                       ),
                     ],
                   ),
@@ -150,10 +153,13 @@ class HomeAlternate extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Image(
-                        image: AssetImage('Images/eddy.png'),
-                        height: 50,
-                        width: 50,
+                      Hero(
+                        tag: 'eddy',
+                        child: Image(
+                          image: AssetImage('Images/eddy.png'),
+                          height: 70,
+                          width: 50,
+                        ),
                       ),
                     ],
                   ),

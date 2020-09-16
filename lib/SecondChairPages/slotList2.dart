@@ -1,6 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -77,7 +76,7 @@ class _SlotList2State extends State<SlotList2> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Wait for Approval'),
+            title: Text('WAIT FOR APPROVAL !'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -194,7 +193,7 @@ class _SlotList2State extends State<SlotList2> {
                         height: 50,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: 'Where can I reach you ? ',
+                            hintText: 'Where can We reach you ? ',
                           ),
                           validator: (value) {
                             if (!isNumeric(value))
@@ -215,7 +214,7 @@ class _SlotList2State extends State<SlotList2> {
                       padding: EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
-                        childAspectRatio: 1.2,
+                        childAspectRatio: 1.3,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
                       ),
@@ -228,11 +227,16 @@ class _SlotList2State extends State<SlotList2> {
                             : (slots[index].isPending() == true)
                                 ? Pending()
                                 : GestureDetector(
-                                    onTap: () => setState(() {
-                                      choices = List.filled(18, false);
-                                      choices[index] = true;
-                                      time = slots[index].time;
-                                    }),
+                                    onTap: () {
+                                      if (_formKey.currentState.validate()) {
+                                        DatabaseService().updatedata2(
+                                            nameController.text,
+                                            phoneController.text,
+                                            slots[index].time);
+                                        _showMyDialog();
+                                        _formKey.currentState.reset();
+                                      }
+                                    },
                                     child: SlotTile(
                                         slot: slots[index],
                                         selected: choices[index]),
@@ -240,32 +244,33 @@ class _SlotList2State extends State<SlotList2> {
                       },
                     ),
                   ),
-                  RaisedButton(
-                    color: Colors.black,
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        side: BorderSide(color: Colors.black)),
-                    onPressed: () {
-                      if (choices.indexOf(true) != -1) {
-                        if (_formKey.currentState.validate()) {
-                          DatabaseService().updatedata2(
-                              nameController.text, phoneController.text, time);
-                          _showMyDialog();
-                          _formKey.currentState.reset();
-                        }
-                      } else {
-                        _showSelectTimeDialog();
-                      }
-                    },
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
+
+                  // RaisedButton(
+                  //   color: Colors.black,
+                  //   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(25.0),
+                  //       side: BorderSide(color: Colors.black)),
+                  //   onPressed: () {
+                  //     if (choices.indexOf(true) != -1) {
+                  //       if (_formKey.currentState.validate()) {
+                  //         DatabaseService().updatedata2(
+                  //             nameController.text, phoneController.text, time);
+                  //         _showMyDialog();
+                  //         _formKey.currentState.reset();
+                  //       }
+                  //     } else {
+                  //       _showSelectTimeDialog();
+                  //     }
+                  //   },
+                  //   child: Text(
+                  //     'Confirm',
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontSize: 25,
+                  //     ),
+                  //   ),
+                  // ),
                 ]),
               );
   }
