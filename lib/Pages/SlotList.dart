@@ -10,6 +10,7 @@ import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:sample_app/Services/Time.dart';
 
 class SlotList extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ String time = "";
 final nameController = new TextEditingController();
 final phoneController = new TextEditingController();
 StreamSubscription subscription;
+dynamic today;
 
 class _SlotListState extends State<SlotList> {
   @override
@@ -37,6 +39,14 @@ class _SlotListState extends State<SlotList> {
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none)
         Navigator.pushReplacementNamed(context, '/noConnection');
+    });
+
+    //get the time
+    TimeService service = new TimeService();
+    service.getJLMTime().then((value) {
+      setState(() {
+        today = value;
+      });
     });
   }
 
@@ -63,6 +73,7 @@ class _SlotListState extends State<SlotList> {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final slots = Provider.of<List<Slot>>(context);
+    if (today == null) return Loading();
 
     isConnected().then((value) => {
           if (value == false)
@@ -144,7 +155,7 @@ class _SlotListState extends State<SlotList> {
 
     bool isFull() {
       for (int i = 0; i < slots.length; i++) {
-        if (!slots[i].isReserved()) return false;
+        if (!slots[i].isTaken(today)) return false;
       }
       return true;
     }
@@ -219,7 +230,7 @@ class _SlotListState extends State<SlotList> {
                           scrollDirection: Axis.horizontal,
                           itemCount: slots.length,
                           itemBuilder: (context, index) {
-                            return (slots[index].isReserved() == true)
+                            return (slots[index].isTaken(today) == true)
                                 ? Taken()
                                 : (slots[index].isPending() == true)
                                     ? Pending()

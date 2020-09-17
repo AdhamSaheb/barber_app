@@ -76,6 +76,7 @@ class _SlotList2State extends State<SlotList2> {
 
   @override
   Widget build(BuildContext context) {
+    if (today == null) return Loading();
     isConnected().then((value) => {
           if (value == false)
             Navigator.pushReplacementNamed(context, '/noConnection')
