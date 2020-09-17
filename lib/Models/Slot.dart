@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ntp/ntp.dart';
+import 'package:sample_app/Services/Time.dart';
 
 class Slot {
   String time;
@@ -11,10 +11,18 @@ class Slot {
   Slot({this.time, this.phone, this.name, this.reservationTime, this.pending});
 
   bool isReserved() {
-    if (reservationTime.toDate().day == DateTime.now().day &&
-        reservationTime.toDate().month == DateTime.now().month &&
-        reservationTime.toDate().year == DateTime.now().year) return true;
-    return false;
+    // dynamic now = this.service.getJLMTime();
+    DateTime now = DateTime.now();
+    return (reservationTime.toDate().day == now.day &&
+        reservationTime.toDate().month == now.month &&
+        reservationTime.toDate().year == now.year);
+  }
+
+  bool isTaken(DateTime now) {
+    // dynamic now = this.service.getJLMTime();
+    return (reservationTime.toDate().day == now.day &&
+        reservationTime.toDate().month == now.month &&
+        reservationTime.toDate().year == now.year);
   }
 
   bool isPending() {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/Pages/Closed.dart';
@@ -5,8 +7,8 @@ import 'package:sample_app/Pages/Loading.dart';
 import 'package:sample_app/Pages/MyForm.dart';
 import 'package:sample_app/Pages/Notyet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ntp/ntp.dart';
-import 'package:sample_app/Pages/noConnection.dart';
+
+import 'package:http/http.dart' as http;
 
 class Booking extends StatefulWidget {
   @override
@@ -16,6 +18,10 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   dynamic times;
   dynamic _currentTime;
+  //api to get time jerusalem
+  final String apiUrl = "http://worldtimeapi.org/api/timezone/Asia/Jerusalem";
+
+//get opening and closing times from firestore
 
   Future<dynamic> getTimes() async {
     final DocumentReference document =
@@ -28,15 +34,22 @@ class _BookingState extends State<Booking> {
     });
   }
 
+//get the time in jerusalem
+  _findTime() async {
+    // _currentTime = await NTP.now();
+    var result = await http.get(apiUrl);
+    setState(() {
+      _currentTime =
+          DateTime.parse(json.decode(result.body)['datetime']).toLocal();
+    });
+    // DateTime.now().toLocal()
+  }
+
   @override
   void initState() {
     super.initState();
     getTimes();
     _findTime();
-  }
-
-  _findTime() async {
-    _currentTime = await NTP.now();
   }
 
   String getTime() {
@@ -45,33 +58,33 @@ class _BookingState extends State<Booking> {
     return formattedDate;
   }
 
-  bool isSameDate() {
-    // print("Timezone " + _currentTime.timeZoneName);
-    // print("Timezone " + DateTime.now().timeZoneName);
-    // print(_currentTime);
-    // print(DateTime.now());
-    if (_currentTime.day != DateTime.now().day ||
-        _currentTime.month != DateTime.now().month ||
-        _currentTime.year != DateTime.now().year ||
-        _currentTime.hour != DateTime.now().hour) return false;
+  // bool isSameDate() {
+  //   // print("Timezone " + _currentTime.timeZoneName);
+  //   // print("Timezone " + DateTime.now().timeZoneName);
+  //   // print(_currentTime);
+  //   // print(DateTime.now());
+  //   if (_currentTime.day != DateTime.now().day ||
+  //       _currentTime.month != DateTime.now().month ||
+  //       _currentTime.year != DateTime.now().year ||
+  //       _currentTime.hour != DateTime.now().hour) return false;
 
-    return true;
-  }
+  //   return true;
+  // }
 
-  bool sameTimeZone() {
-    if (_currentTime.timeZoneName == "IDT" ||
-        _currentTime.timeZoneName == "IST" ||
-        _currentTime.timeZoneName == "PSE" ||
-        _currentTime.timeZoneName == "PS" ||
-        _currentTime.timeZoneName == "EEST") return true;
-    return false;
-  }
+  // bool sameTimeZone() {
+  //   if (_currentTime.timeZoneName == "IDT" ||
+  //       _currentTime.timeZoneName == "IST" ||
+  //       _currentTime.timeZoneName == "PSE" ||
+  //       _currentTime.timeZoneName == "PS" ||
+  //       _currentTime.timeZoneName == "EEST") return true;
+  //   return false;
+  // }
 
   @override
   Widget build(BuildContext context) {
     if (times == null || _currentTime == null) return Loading();
     if (times['closed'] == true) return Closed();
-    if (!isSameDate() || !sameTimeZone()) return noConnection();
+    // if (!isSameDate() || !sameTimeZone()) return noConnection();
 
     return (_currentTime.weekday == 7)
         ? Closed()
