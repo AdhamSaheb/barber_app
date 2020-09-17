@@ -26,10 +26,10 @@ class HomeAdmin extends StatelessWidget {
         hideHeader: true,
         title: new Text("Open > Close"),
         onConfirm: (Picker picker, List value) {
-          //start Time
-          print(picker.getSelectedValues()[0]);
-          //EndTime
-          print(picker.getSelectedValues()[1]);
+          // //start Time
+          // print(picker.getSelectedValues()[0]);
+          // //EndTime
+          // print(picker.getSelectedValues()[1]);
           //change the start and end time in database
           Firestore.instance.collection('Times').document('times').updateData({
             "start": (picker.getSelectedValues()[0]),
@@ -257,7 +257,7 @@ class HomeAdmin extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 'MURAD\'S SCHEDULE ',

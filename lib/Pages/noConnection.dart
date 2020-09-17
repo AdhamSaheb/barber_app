@@ -8,7 +8,7 @@ class noConnection extends StatelessWidget {
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.black,
           ),
         ),
         body: Container(
@@ -35,7 +35,7 @@ class noConnection extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  'Looks like your phone is not connected to the Internet ',
+                  'Looks like your phone is not connected to the Internet, try connecting to a network and set your device\'s Time to Automatic ',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
