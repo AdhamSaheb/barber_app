@@ -218,6 +218,7 @@ class _SlotListState extends State<SlotList> {
 
                       Expanded(
                         child: GridView.builder(
+                          physics: BouncingScrollPhysics(),
                           primary: false,
                           padding: EdgeInsets.all(12),
                           gridDelegate:

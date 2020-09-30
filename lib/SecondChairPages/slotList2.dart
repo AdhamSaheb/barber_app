@@ -222,6 +222,7 @@ class _SlotList2State extends State<SlotList2> {
                   ),
                   Expanded(
                     child: GridView.builder(
+                      physics: BouncingScrollPhysics(),
                       primary: false,
                       padding: EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 class HomeAlternate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void _showDialog() {
+      showAboutDialog(
+          context: context,
+          applicationName: 'Mustache Barbershop',
+          applicationIcon:
+              Image.asset('Images/launcher.jpg', width: 90, height: 100),
+          applicationVersion: '1.4',
+          children: [
+            Text('Developer : Adham Saheb'),
+          ]);
+    }
+
     return Scaffold(
         backgroundColor: Colors.grey[100],
         body: Container(
@@ -10,6 +22,18 @@ class HomeAlternate extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    child: Icon(Icons.info),
+                    onTap: () => _showDialog(),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 20,
               ),

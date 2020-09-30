@@ -51,8 +51,8 @@ android {
         applicationId "com.mustachebarbershop.com"
         targetSdkVersion 29
         minSdkVersion 21
-        versionCode 2003
-        versionName '1.2'
+        versionCode 2004
+        versionName '1.4'
     }
 
 
