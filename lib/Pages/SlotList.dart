@@ -170,7 +170,7 @@ class _SlotListState extends State<SlotList> {
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Icon(Icons.person),
                           Container(
@@ -192,7 +192,7 @@ class _SlotListState extends State<SlotList> {
                       ),
                       //SizedBox(height:10),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Icon(Icons.phone),
                           Container(
@@ -214,6 +214,26 @@ class _SlotListState extends State<SlotList> {
                       ),
                       SizedBox(
                         height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.timer),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Available Slots',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          )
+                        ],
+                      ),
+                      Divider(
+                        indent: 50,
+                        endIndent: 50,
+                        color: Colors.black,
+                        thickness: 1.5,
                       ),
 
                       Expanded(

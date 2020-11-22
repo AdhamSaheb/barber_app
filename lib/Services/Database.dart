@@ -114,6 +114,13 @@ class DatabaseService {
         'Time': time,
         'reservationTime': DateTime(now.year, now.month, now.day - 1),
       });
+      slotcollection.document(time).setData({
+        'pending': false,
+        'Name': 'Name',
+        'Phone': '222222',
+        'Time': time,
+        'reservationTime': DateTime(now.year, now.month, now.day - 1),
+      });
     });
   }
 

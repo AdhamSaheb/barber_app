@@ -3,6 +3,7 @@ import 'package:sample_app/Components/FreeSlot.dart';
 import 'package:sample_app/Components/pendingSlot.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 //Inside the Schedule
 
@@ -70,39 +71,97 @@ class Reservation extends StatelessWidget {
     if (slot.isPending() == true) return PendingSlot(slot: slot);
     return (slot.isReserved() == false)
         ? FreeSlot(slot: slot)
-        : GestureDetector(
-            // container instead of button
-            onDoubleTap: () => _showMyDialog(),
+        : Slidable(
+            actionPane: SlidableDrawerActionPane(),
+            actionExtentRatio: 0.3,
             child: Card(
-                elevation: 0,
+                elevation: 10,
                 child: Container(
+                  padding: EdgeInsets.all(15),
                   width: double.infinity,
-                  height: 100,
-                  color: Colors.red[900],
+                  color: Colors.red,
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(
-                          to12format(slot.time),
-                          style: TextStyle(color: Colors.white, fontSize: 30),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.timer,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                to12format(slot.time),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 30),
+                              ),
+                            ]),
+                        Divider(
+                          color: Colors.white,
+                          thickness: 1,
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
+                            Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Text(
                               slot.name,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.phone,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
                             ),
                             Text(
                               slot.phone,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                       ]),
                 )),
+            actions: [
+              IconSlideAction(
+                  closeOnTap: true,
+                  caption: 'Cancel',
+                  color: Colors.red,
+                  icon: Icons.delete,
+                  onTap: () => _showMyDialog()),
+              IconSlideAction(
+                  closeOnTap: true,
+                  caption: 'Call',
+                  color: Colors.green,
+                  icon: Icons.phone,
+                  onTap: () => _showMyDialog()),
+            ],
           );
   }
 }

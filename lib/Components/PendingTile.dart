@@ -59,12 +59,24 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        to12format(widget.slot.time),
-                        style: TextStyle(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.timer,
                             color: Colors.black,
-                            fontSize: 35,
-                            fontFamily: 'Anton'),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            to12format(widget.slot.time),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 35,
+                                fontFamily: 'Anton'),
+                          ),
+                        ],
                       ),
                       Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,7 +115,9 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                   //     "0546218681", "Hello");
                                 },
                                 child: Text("Confirm",
-                                    style: TextStyle(color: Colors.white)),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
                               ),
                             ),
                             ButtonTheme(
@@ -122,7 +136,9 @@ class _PendingTileBuilderState extends State<PendingTileBuilder> {
                                 child: Text(
                                   "Decline",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
