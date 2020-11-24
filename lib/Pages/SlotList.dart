@@ -168,6 +168,7 @@ class _SlotListState extends State<SlotList> {
                 key: _formKey,
                 child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -179,7 +180,7 @@ class _SlotListState extends State<SlotList> {
                             child: TextFormField(
                               controller: nameController,
                               decoration: const InputDecoration(
-                                hintText: 'What do people call you?',
+                                hintText: 'What\'s your name ? ',
                               ),
                               validator: (value) {
                                 if (value.isEmpty)
@@ -200,7 +201,7 @@ class _SlotListState extends State<SlotList> {
                             height: 50,
                             child: TextFormField(
                               decoration: const InputDecoration(
-                                hintText: 'Where can We reach you ? ',
+                                hintText: 'What\'s your mobile number ? ',
                               ),
                               validator: (value) {
                                 if (!isNumeric(value))
@@ -228,12 +229,6 @@ class _SlotListState extends State<SlotList> {
                                 fontWeight: FontWeight.bold, fontSize: 22),
                           )
                         ],
-                      ),
-                      Divider(
-                        indent: 50,
-                        endIndent: 50,
-                        color: Colors.black,
-                        thickness: 1.5,
                       ),
 
                       Expanded(

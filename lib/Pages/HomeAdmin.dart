@@ -206,54 +206,10 @@ class HomeAdmin extends StatelessWidget {
                   ),
                   RaisedButton(
                       elevation: 5.0,
-                      color: Colors.blue,
-                      padding: EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                'TAKE A BREAK',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: 'Roboto'),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Schedule an eating break',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'ChelseaMarket'),
-                              )
-                            ],
-                          ),
-                          Image(
-                            image: AssetImage('Images/food.png'),
-                            height: 50,
-                            width: 50,
-                          ),
-                        ],
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(color: Colors.black)),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/choice');
-                      }),
-                  RaisedButton(
-                      elevation: 5.0,
                       color: Colors.white,
                       padding: EdgeInsets.all(20),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,6 +295,50 @@ class HomeAdmin extends StatelessWidget {
                           side: BorderSide(color: Colors.black)),
                       onPressed: () {
                         Navigator.pushNamed(context, '/Query2');
+                      }),
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Colors.blue,
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'CUSTOM RESERVATION',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Schedule a haircut for a guest',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'ChelseaMarket'),
+                              )
+                            ],
+                          ),
+                          Icon(
+                            Icons.calendar_today,
+                            size: 50,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/choice');
                       }),
                 ],
               ),

@@ -34,13 +34,20 @@ class _Booking2State extends State<Booking2> {
 
 //get the time in jerusalem
   _findTime() async {
-    // _currentTime = await NTP.now();
-    var result = await http.get(apiUrl);
-    setState(() {
-      _currentTime =
-          DateTime.parse(json.decode(result.body)['datetime']).toLocal();
-    });
-    // DateTime.now().toLocal()
+    try {
+      // _currentTime = await NTP.now();
+      var result = await http.get(apiUrl);
+      setState(() {
+        //print("imhere");
+        _currentTime =
+            DateTime.parse(json.decode(result.body)['datetime']).toLocal();
+      });
+    } catch (e) {
+      print("caught");
+      setState(() {
+        _currentTime = DateTime.now().toLocal();
+      });
+    }
   }
 
   String getTime() {

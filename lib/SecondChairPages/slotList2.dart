@@ -184,7 +184,7 @@ class _SlotList2State extends State<SlotList2> {
                         child: TextFormField(
                           controller: nameController,
                           decoration: const InputDecoration(
-                            hintText: 'What do people call you?',
+                            hintText: 'What\'s your name ?',
                           ),
                           validator: (value) {
                             if (value.isEmpty)
@@ -205,7 +205,7 @@ class _SlotList2State extends State<SlotList2> {
                         height: 50,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: 'Where can We reach you ? ',
+                            hintText: 'What\'s you mobile number ? ',
                           ),
                           validator: (value) {
                             if (!isNumeric(value))

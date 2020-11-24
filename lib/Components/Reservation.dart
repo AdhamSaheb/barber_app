@@ -4,7 +4,7 @@ import 'package:sample_app/Components/pendingSlot.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 //Inside the Schedule
 
 class Reservation extends StatelessWidget {
@@ -70,9 +70,12 @@ class Reservation extends StatelessWidget {
 
     if (slot.isPending() == true) return PendingSlot(slot: slot);
     return (slot.isReserved() == false)
-        ? FreeSlot(slot: slot)
+        ? FreeSlot(
+            slot: slot,
+            collection: this.collection,
+          )
         : Slidable(
-            actionPane: SlidableDrawerActionPane(),
+            actionPane: SlidableStrechActionPane(),
             actionExtentRatio: 0.3,
             child: Card(
                 elevation: 10,
@@ -160,7 +163,7 @@ class Reservation extends StatelessWidget {
                   caption: 'Call',
                   color: Colors.green,
                   icon: Icons.phone,
-                  onTap: () => _showMyDialog()),
+                  onTap: () => {launch("tel://" + this.slot.phone)}),
             ],
           );
   }

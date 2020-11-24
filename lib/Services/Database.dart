@@ -82,6 +82,26 @@ class DatabaseService {
     }
   }
 
+//used to reserve an eating break
+  void reserveEatingBreak(String collection, String time) {
+    final now = DateTime.now();
+    if (collection == 'slotcollection') {
+      slotcollection.document(time).updateData({
+        'pending': false,
+        'reservationTime': DateTime(now.year, now.month, now.day),
+        'Name': 'Eating break',
+        'Phone': '0000',
+      });
+    } else {
+      slotcollection2.document(time).updateData({
+        'pending': false,
+        'reservationTime': DateTime(now.year, now.month, now.day),
+        'Name': 'Eating break',
+        'Phone': '0000',
+      });
+    }
+  }
+
   void init() {
     var times = [
       // '11:30',
