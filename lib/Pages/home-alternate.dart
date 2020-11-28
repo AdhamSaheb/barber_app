@@ -21,13 +21,13 @@ class HomeAlternate extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: Container(
-        padding: const EdgeInsets.all(10.0),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             SizedBox(
-              height: screenHeight / 20,
+              height: screenHeight / 15,
             ),
             //location and information buttons
 
@@ -120,187 +120,207 @@ class HomeAlternate extends StatelessWidget {
                 ),
               ],
             ),
-
-            RaisedButton(
-                elevation: 5.0,
-                color: Colors.blue,
-                padding: EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Hero(
-                      tag: 'murad',
-                      child: Image(
-                        image: AssetImage('Images/Murad.png'),
-                        height: 70,
-                        width: 50,
+            //the 4 buttons
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Colors.blue,
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Hero(
+                            tag: 'murad',
+                            child: Image(
+                              image: AssetImage('Images/Murad.png'),
+                              height: 70,
+                              width: 50,
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'GET A HAIRCUT FROM MURAD',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Reserve a haircut with Murad',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'ChelseaMarket'),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'GET A HAIRCUT FROM MURAD',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Roboto'),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Reserve a haircut with Murad',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'ChelseaMarket'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/booking');
-                }),
-            RaisedButton(
-                elevation: 5.0,
-                color: Colors.white,
-                padding: EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'GET A HAIRCUT FROM EDDY',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Reserve a haircut with Eddy',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontFamily: 'ChelseaMarket'),
-                        ),
-                      ],
-                    ),
-                    Hero(
-                      tag: 'eddy',
-                      child: Image(
-                        image: AssetImage('Images/eddy.png'),
-                        height: 70,
-                        width: 50,
-                      ),
-                    ),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/booking2');
-                }),
-            RaisedButton(
-                elevation: 5.0,
-                color: Color(0xff6AF4FF),
-                padding: EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'Navigate to Barbershop',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Navigate to barbershop through maps',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontFamily: 'ChelseaMarket'),
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.location_on,
-                      size: 50,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/booking');
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  RaisedButton(
+                      elevation: 5.0,
                       color: Colors.white,
-                    ),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  openMap(31.831406, 35.231274);
-                }),
-            RaisedButton(
-                elevation: 5.0,
-                color: Colors.green[400],
-                padding: EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'LOGIN IN AS A BARBER',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Sign In to Confirm/Decline bookings',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontFamily: 'ChelseaMarket'),
-                        ),
-                      ],
-                    ),
-                    Image(
-                      image: AssetImage('Images/password.png'),
-                      height: 50,
-                      width: 50,
-                    ),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                }),
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'GET A HAIRCUT FROM EDDY',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Reserve a haircut with Eddy',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontFamily: 'ChelseaMarket'),
+                              ),
+                            ],
+                          ),
+                          Hero(
+                            tag: 'eddy',
+                            child: Image(
+                              image: AssetImage('Images/eddy.png'),
+                              height: 70,
+                              width: 50,
+                            ),
+                          ),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/booking2');
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Color(0xff6AF4FF),
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'Navigate to Barbershop',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Navigate to barbershop through maps',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontFamily: 'ChelseaMarket'),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.location_on,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        openMap(31.831406, 35.231274);
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Colors.green[400],
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'LOGIN IN AS A BARBER',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Sign In to Confirm/Decline bookings',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontFamily: 'ChelseaMarket'),
+                              ),
+                            ],
+                          ),
+                          Image(
+                            image: AssetImage('Images/password.png'),
+                            height: 50,
+                            width: 50,
+                          ),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

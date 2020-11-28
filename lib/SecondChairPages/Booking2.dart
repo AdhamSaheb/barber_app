@@ -87,7 +87,7 @@ class _Booking2State extends State<Booking2> {
     if (times['closed'] == true) return Closed();
     // if (!isSameDate() || !sameTimeZone()) return noConnection();
 
-    return (_currentTime.weekday == 6)
+    return (_currentTime.weekday == 7)
         ? Closed()
         : (_currentTime.hour < times['start'] ||
                 _currentTime.hour >= times['end'])
