@@ -114,21 +114,45 @@ class HomeAdmin extends StatelessWidget {
                       showPickerNumber(context);
                     },
                   ),
+                  //Button for murad closed toggle
                   ListTile(
                     leading: Icon(Icons.cancel),
                     title: Row(
                       children: [
                         Text(
-                          'Closed',
+                          'Murad-Closed',
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Anton',
-                              fontSize: 20),
+                              fontSize: 15),
                         ),
                         SizedBox(
                           width: 50,
                         ),
-                        ClosedToggler(),
+                        ClosedToggler(
+                          barber: 'Murad',
+                        ),
+                      ],
+                    ),
+                  ),
+                  //button for eddy closed toggle
+                  ListTile(
+                    leading: Icon(Icons.cancel),
+                    title: Row(
+                      children: [
+                        Text(
+                          'Eddy - Closed',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Anton',
+                              fontSize: 15),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        ClosedToggler(
+                          barber: 'Eddy',
+                        ),
                       ],
                     ),
                   ),

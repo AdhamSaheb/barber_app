@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/Pages/Booking.dart';
+import 'package:sample_app/SecondChairPages/Booking2.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeAlternate extends StatelessWidget {
@@ -171,7 +173,13 @@ class HomeAlternate extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: Colors.black)),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/booking');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Booking(
+                                    isBarber: false,
+                                  )),
+                        );
                       }),
                   SizedBox(
                     height: 10,
@@ -219,7 +227,13 @@ class HomeAlternate extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: Colors.black)),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/booking2');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Booking2(
+                                    isBarber: false,
+                                  )),
+                        );
                       }),
                   SizedBox(
                     height: 10,

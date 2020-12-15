@@ -10,6 +10,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 class Booking2 extends StatefulWidget {
+  // to check wether navigated user is a barber
+  @required
+  final bool isBarber;
+  Booking2({this.isBarber});
   @override
   _Booking2State createState() => _Booking2State();
 }
@@ -83,8 +87,10 @@ class _Booking2State extends State<Booking2> {
 
   @override
   Widget build(BuildContext context) {
+    //let barbers in no matter what
+    if (widget.isBarber) return MainBody();
     if (times == null || _currentTime == null) return Loading();
-    if (times['closed'] == true) return Closed();
+    if (times['isEddyClosed'] == true) return Closed();
     // if (!isSameDate() || !sameTimeZone()) return noConnection();
 
     return (_currentTime.weekday == 7)
@@ -92,61 +98,69 @@ class _Booking2State extends State<Booking2> {
         : (_currentTime.hour < times['start'] ||
                 _currentTime.hour >= times['end'])
             ? NotYet()
-            : Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(50.0),
-                  child: AppBar(
-                    elevation: 0,
-                    leading: BackButton(
-                      color: Colors.black,
-                    ),
-                    backgroundColor: Colors.transparent,
-                  ),
-                ),
-                body: SingleChildScrollView(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Hero(
-                              tag: 'eddy',
-                              child: Image(
-                                image: AssetImage('Images/eddy.png'),
-                                height: 100,
-                                width: 90,
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.black87),
-                              // color: Colors.black87,
-                              // width: double.infinity,
-                              margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                getTime(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'ChelseaMarket',
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ), //this is where the black box ends
-                        SizedBox(height: 20),
-                        Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.all(10),
-                          child: MyForm2(),
-                        )
-                      ],
+            : MainBody();
+  }
+}
+
+class MainBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0),
+        child: AppBar(
+          elevation: 0,
+          leading: BackButton(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.transparent,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Column(
+                children: [
+                  Hero(
+                    tag: 'eddy',
+                    child: Image(
+                      image: AssetImage('Images/eddy.png'),
+                      height: 100,
+                      width: 90,
                     ),
                   ),
-                ),
-              );
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black87),
+                    // color: Colors.black87,
+                    // width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      DateFormat('EEEE yyyy-MM-dd – kk:mm')
+                          .format(DateTime.now()),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'ChelseaMarket',
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ), //this is where the black box ends
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(10),
+                child: MyForm2(),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

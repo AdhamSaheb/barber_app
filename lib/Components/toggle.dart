@@ -3,13 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sample_app/Pages/Loading.dart';
 
 class ClosedToggler extends StatefulWidget {
+  @required
+  final String barber;
+
+  ClosedToggler({this.barber});
   @override
   _ClosedTogglerState createState() => _ClosedTogglerState();
 }
 
 class _ClosedTogglerState extends State<ClosedToggler> {
   dynamic times;
-
   Future<dynamic> getTimes() async {
     final DocumentReference document =
         Firestore.instance.collection("Times").document('times');
@@ -24,13 +27,18 @@ class _ClosedTogglerState extends State<ClosedToggler> {
   Future<dynamic> toggleClose() async {
     final DocumentReference document =
         Firestore.instance.collection("Times").document('times');
-
-    await document.updateData({'closed': !times['closed']});
+    //murad toggle switch
+    if (widget.barber == 'Murad')
+      await document.updateData({'isMuradClosed': !times['isMuradClosed']});
+    //eddy toggle switch
+    else if (widget.barber == 'Eddy')
+      await document.updateData({'isEddyClosed': !times['isEddyClosed']});
   }
 
   @override
   void initState() {
     super.initState();
+    //read database to set initial state
     getTimes();
   }
 
@@ -41,11 +49,21 @@ class _ClosedTogglerState extends State<ClosedToggler> {
         : Switch(
             activeColor: Colors.red[400],
             activeTrackColor: Colors.red[400],
-            value: times['closed'],
+            //initial value of toggle switcher
+            value: (widget.barber == 'Murad')
+                ? times['isMuradClosed']
+                : times['isEddyClosed'],
+            //value: times['isEddyClosed'],
             onChanged: (value) {
               setState(() {
                 toggleClose();
-                times['closed'] = !times['closed'];
+                //difference : toggle local button state
+                //murad toggle switch
+                if (widget.barber == 'Murad')
+                  times['isMuradClosed'] = !times['isMuradClosed'];
+                //eddy toggle switch
+                else if (widget.barber == 'Eddy')
+                  times['isEddyClosed'] = !times['isEddyClosed'];
               });
             },
           );
