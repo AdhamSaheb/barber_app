@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sample_app/Pages/Closed.dart';
-import 'package:sample_app/Pages/Loading.dart';
+import 'package:sample_app/Pages/Barbershop%20State/Closed.dart';
+import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Pages/MyForm.dart';
-import 'package:sample_app/Pages/Notyet.dart';
+import 'package:sample_app/Pages/Barbershop%20State/Notyet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sample_app/Pages/Loading.dart';
+import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 
 class ClosedToggler extends StatefulWidget {
   @required

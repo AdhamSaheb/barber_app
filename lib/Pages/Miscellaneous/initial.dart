@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:sample_app/Intro/IntroScreen.dart';
-import 'package:sample_app/Pages/Loading.dart';
-import 'package:sample_app/Pages/wrapper.dart';
+import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
+import 'package:sample_app/Pages/Miscellaneous/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Initial extends StatefulWidget {

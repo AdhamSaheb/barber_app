@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app/Components/toggle.dart';
+import 'package:sample_app/Edit%20Slots/UI/addremoveslotsUI.dart';
+import 'package:sample_app/Edit%20Slots/bloc/addremoveslots_bloc.dart';
 import 'package:sample_app/Services/authentication.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //use stless to generate
 class HomeAdmin extends StatelessWidget {
@@ -320,6 +323,58 @@ class HomeAdmin extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, '/Query2');
                       }),
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Colors.red[300],
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'Edit Slots',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Add or Remove a reservation slot',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'ChelseaMarket'),
+                              )
+                            ],
+                          ),
+                          Icon(
+                            Icons.content_copy,
+                            size: 50,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        //navigate with bloc
+                        Navigator.push(context, MaterialPageRoute(builder: (_) {
+                          return BlocProvider(
+                            create: (context) => AddremoveslotsBloc(),
+                            child: AddRemoveSlotsUI(),
+                          );
+                        }));
+                      }),
+
+                  //slot editing page
                   RaisedButton(
                       elevation: 5.0,
                       color: Colors.blue,

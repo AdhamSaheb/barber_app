@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_app/Components/PendingTile.dart';
 import 'package:sample_app/Models/Slot.dart';
-import 'package:sample_app/Pages/Loading.dart';
+import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 
 class PendingList extends StatelessWidget {
   final String collection;

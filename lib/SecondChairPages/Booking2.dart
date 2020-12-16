@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sample_app/Pages/Closed.dart';
-import 'package:sample_app/Pages/Loading.dart';
-import 'package:sample_app/Pages/Notyet.dart';
+import 'package:sample_app/Pages/Barbershop%20State/Closed.dart';
+import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
+import 'package:sample_app/Pages/Barbershop%20State/Notyet.dart';
 import 'package:sample_app/SecondChairPages/MyForm2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
