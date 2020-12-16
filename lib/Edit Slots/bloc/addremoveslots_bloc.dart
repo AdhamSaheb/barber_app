@@ -67,7 +67,7 @@ class AddremoveslotsBloc
             .collection("Slots2")
             .document(event.time)
             .setData({
-          'Phone': 0000,
+          'Phone': '0000',
           'Name': 'NEW SLOT',
           'reservationTime': DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day - 1),

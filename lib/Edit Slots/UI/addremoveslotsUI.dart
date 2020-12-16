@@ -137,40 +137,49 @@ class _AddRemoveSlotsUIState extends State<AddRemoveSlotsUI> {
                       shrinkWrap: true,
                       primary: false,
                       itemBuilder: (BuildContext context, int index) {
-                        return Slidable(
-                          actionPane: SlidableStrechActionPane(),
-                          actionExtentRatio: 0.2,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: myColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(30),
-                            child: Text(
-                              state.times[index],
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
+                        return Padding(
+                          padding: EdgeInsets.all(5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: Slidable(
+                              actionPane: SlidableBehindActionPane(),
+                              actionExtentRatio: 0.2,
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: myColor,
+                                  //borderRadius:
+                                  // BorderRadius.all(Radius.circular(20))
+                                ),
+                                //margin: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  state.times[index],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              actions: [
+                                IconSlideAction(
+                                    closeOnTap: true,
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () => {
+                                          BlocProvider.of<AddremoveslotsBloc>(
+                                                  context)
+                                              .add(RemoveSlot(
+                                                  barber:
+                                                      state.barber.toString(),
+                                                  time: state.times[index])),
+                                          print(state.barber.toString() +
+                                              "-" +
+                                              state.times[index])
+                                        }),
+                              ],
                             ),
                           ),
-                          actions: [
-                            IconSlideAction(
-                                closeOnTap: true,
-                                color: Colors.red,
-                                icon: Icons.delete,
-                                onTap: () => {
-                                      BlocProvider.of<AddremoveslotsBloc>(
-                                              context)
-                                          .add(RemoveSlot(
-                                              barber: state.barber.toString(),
-                                              time: state.times[index])),
-                                      print(state.barber.toString() +
-                                          "-" +
-                                          state.times[index])
-                                    })
-                          ],
                         );
                       });
               })

@@ -30,7 +30,7 @@ class _SlotListState extends State<SlotList> {
   @override
   void initState() {
     super.initState();
-    choices = List.filled(18, false);
+    //choices = List.filled(18, false);
     nameController.clear();
     phoneController.clear();
     //subscribe to connection change
@@ -263,8 +263,9 @@ class _SlotListState extends State<SlotList> {
                                           }
                                         },
                                         child: SlotTile(
-                                            slot: slots[index],
-                                            selected: choices[index]),
+                                          slot: slots[index],
+                                          //selected: choices[index]
+                                        ),
                                       );
                           },
                         ),
