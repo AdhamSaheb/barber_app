@@ -21,44 +21,42 @@ class FreeSlot extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 100,
-        child: Card(
-          color: Colors.green,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.timer,
+        color: Colors.green,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.timer,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    slot.time,
+                    style: TextStyle(
                       color: Colors.white,
+                      fontSize: 30,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      slot.time,
-                      style: TextStyle(
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Free',
+                    style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text(
-                      'Free',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ]),
-        ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ]),
       ),
       actions: [
         IconSlideAction(

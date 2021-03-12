@@ -20,6 +20,7 @@ class Slot {
 
   bool isTaken(DateTime now) {
     // dynamic now = this.service.getJLMTime();
+    //print(reservationTime.toDate());
     return (reservationTime.toDate().day == now.day &&
         reservationTime.toDate().month == now.month &&
         reservationTime.toDate().year == now.year);

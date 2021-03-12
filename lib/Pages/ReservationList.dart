@@ -14,9 +14,15 @@ class ReservationList extends StatelessWidget {
         : ListView.builder(
             padding: EdgeInsets.all(10),
             itemCount: slots.length,
-            itemBuilder: (context, index) => Reservation(
-              slot: slots[index],
-              collection: 'slotcollection',
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Reservation(
+                  slot: slots[index],
+                  collection: 'slotcollection',
+                ),
+              ),
             ),
           );
   }

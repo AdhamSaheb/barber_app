@@ -77,80 +77,75 @@ class Reservation extends StatelessWidget {
         : Slidable(
             actionPane: SlidableStrechActionPane(),
             actionExtentRatio: 0.3,
-            child: Card(
-                elevation: 10,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: double.infinity,
-                  color: Colors.red,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Container(
+              padding: EdgeInsets.all(15),
+              width: double.infinity,
+              color: Colors.red,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Icon(
+                        Icons.timer,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        to12format(slot.time),
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      ),
+                    ]),
+                    Divider(
+                      color: Colors.white,
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
                       children: <Widget>[
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.timer,
-                                color: Colors.white,
-                                size: 25,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                to12format(slot.time),
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30),
-                              ),
-                            ]),
-                        Divider(
+                        Icon(
+                          Icons.person,
                           color: Colors.white,
-                          thickness: 1,
                         ),
                         SizedBox(
-                          height: 10,
+                          width: 10,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.person,
+                        Text(
+                          slot.name,
+                          style: TextStyle(
                               color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              slot.name,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.phone,
+                          color: Colors.white,
                         ),
                         SizedBox(
-                          height: 10,
+                          width: 10,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.phone,
+                        Text(
+                          slot.phone,
+                          style: TextStyle(
                               color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              slot.phone,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
-                      ]),
-                )),
+                      ],
+                    ),
+                  ]),
+            ),
             actions: [
               IconSlideAction(
                   closeOnTap: true,

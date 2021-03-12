@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:ntp/ntp.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -41,10 +44,12 @@ class _Booking2State extends State<Booking2> {
     try {
       // _currentTime = await NTP.now();
       var result = await http.get(apiUrl);
+      final formatter = DateFormat(r'''yyyy-MM-ddThh:mm''');
+
       setState(() {
         //print("imhere");
-        _currentTime =
-            DateTime.parse(json.decode(result.body)['datetime']).toLocal();
+        _currentTime = formatter.parse(json.decode(result.body)['datetime']);
+        //print(_currentTime);
       });
     } catch (e) {
       print("caught");
@@ -60,24 +65,6 @@ class _Booking2State extends State<Booking2> {
     return formattedDate;
   }
 
-  // bool isSameDate() {
-  //   // print("Timezone" + _currentTime.timeZoneName);
-  //   if (_currentTime.day != DateTime.now().day ||
-  //       _currentTime.month != DateTime.now().month ||
-  //       _currentTime.year != DateTime.now().year ||
-  //       _currentTime.hour != DateTime.now().hour) return false;
-  //   return true;
-  // }
-
-  // bool sameTimeZone() {
-  //   if (_currentTime.timeZoneName == "IDT" ||
-  //       _currentTime.timeZoneName == "IST" ||
-  //       _currentTime.timeZoneName == "PSE" ||
-  //       _currentTime.timeZoneName == "PS" ||
-  //       _currentTime.timeZoneName == "EEST") return true;
-  //   return false;
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -89,16 +76,13 @@ class _Booking2State extends State<Booking2> {
   Widget build(BuildContext context) {
     //let barbers in no matter what
     if (widget.isBarber) return MainBody();
+
     if (times == null || _currentTime == null) return Loading();
     if (times['isEddyClosed'] == true) return Closed();
-    // if (!isSameDate() || !sameTimeZone()) return noConnection();
-
-    return (_currentTime.weekday == 7)
-        ? Closed()
-        : (_currentTime.hour < times['start'] ||
-                _currentTime.hour >= times['end'])
-            ? NotYet()
-            : MainBody();
+    return (_currentTime.hour < times['start'] ||
+            _currentTime.hour >= times['end'])
+        ? NotYet()
+        : MainBody();
   }
 }
 

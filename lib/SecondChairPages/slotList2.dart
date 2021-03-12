@@ -77,6 +77,7 @@ class _SlotList2State extends State<SlotList2> {
   @override
   Widget build(BuildContext context) {
     if (today == null) return Loading();
+    //print(today);
     isConnected().then((value) => {
           if (value == false)
             Navigator.pushReplacementNamed(context, '/noConnection')
@@ -182,6 +183,7 @@ class _SlotList2State extends State<SlotList2> {
                         width: 250,
                         height: 50,
                         child: TextFormField(
+                          keyboardType: TextInputType.name,
                           controller: nameController,
                           decoration: const InputDecoration(
                             hintText: 'What\'s your name ?',
@@ -203,15 +205,16 @@ class _SlotList2State extends State<SlotList2> {
                       Container(
                         width: 250,
                         height: 50,
-                        child: TextFormField(
+                        child: TextField(
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             hintText: 'What\'s you mobile number ? ',
                           ),
-                          validator: (value) {
-                            if (!isNumeric(value))
-                              return "Enter a valid Phone number ";
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (!isNumeric(value))
+                          //     return "Enter a valid Phone number ";
+                          //   return null;
+                          // },
                           controller: phoneController,
                         ),
                       ),
@@ -278,33 +281,6 @@ class _SlotList2State extends State<SlotList2> {
                       },
                     ),
                   ),
-
-                  // RaisedButton(
-                  //   color: Colors.black,
-                  //   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  //   shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(25.0),
-                  //       side: BorderSide(color: Colors.black)),
-                  //   onPressed: () {
-                  //     if (choices.indexOf(true) != -1) {
-                  //       if (_formKey.currentState.validate()) {
-                  //         DatabaseService().updatedata2(
-                  //             nameController.text, phoneController.text, time);
-                  //         _showMyDialog();
-                  //         _formKey.currentState.reset();
-                  //       }
-                  //     } else {
-                  //       _showSelectTimeDialog();
-                  //     }
-                  //   },
-                  //   child: Text(
-                  //     'Confirm',
-                  //     style: TextStyle(
-                  //       color: Colors.white,
-                  //       fontSize: 25,
-                  //     ),
-                  //   ),
-                  // ),
                 ]),
               );
   }

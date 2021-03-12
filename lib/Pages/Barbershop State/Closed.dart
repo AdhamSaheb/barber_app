@@ -28,15 +28,18 @@ class Closed extends StatelessWidget {
             ),
             Image(image: AssetImage('Images/closed.png')),
             SizedBox(
-              height: 60,
+              height: 40,
             ),
-            Text(
-              'The Barbershop is not open today, apologies !',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Roboto'),
+            Container(
+              width: 300,
+              child: Text(
+                'This barber is not wroking today, apologies !',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto'),
+              ),
             ),
           ]),
         ));

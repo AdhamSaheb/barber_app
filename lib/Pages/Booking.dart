@@ -7,8 +7,6 @@ import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Pages/MyForm.dart';
 import 'package:sample_app/Pages/Barbershop%20State/Notyet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:http/http.dart' as http;
 
 class Booking extends StatefulWidget {
@@ -42,14 +40,15 @@ class _BookingState extends State<Booking> {
 
 //get the time in jerusalem
   _findTime() async {
-    //try get the time from the api, if it fails, collect local device time
     try {
       // _currentTime = await NTP.now();
       var result = await http.get(apiUrl);
+      final formatter = DateFormat(r'''yyyy-MM-ddThh:mm''');
+
       setState(() {
         //print("imhere");
-        _currentTime =
-            DateTime.parse(json.decode(result.body)['datetime']).toLocal();
+        _currentTime = formatter.parse(json.decode(result.body)['datetime']);
+        //print(_currentTime);
       });
     } catch (e) {
       print("caught");
@@ -57,7 +56,6 @@ class _BookingState extends State<Booking> {
         _currentTime = DateTime.now().toLocal();
       });
     }
-    // DateTime.now().toLocal()
   }
 
   @override
@@ -73,28 +71,6 @@ class _BookingState extends State<Booking> {
     return formattedDate;
   }
 
-  // bool isSameDate() {
-  //   // print("Timezone " + _currentTime.timeZoneName);
-  //   // print("Timezone " + DateTime.now().timeZoneName);
-  //   // print(_currentTime);
-  //   // print(DateTime.now());
-  //   if (_currentTime.day != DateTime.now().day ||
-  //       _currentTime.month != DateTime.now().month ||
-  //       _currentTime.year != DateTime.now().year ||
-  //       _currentTime.hour != DateTime.now().hour) return false;
-
-  //   return true;
-  // }
-
-  // bool sameTimeZone() {
-  //   if (_currentTime.timeZoneName == "IDT" ||
-  //       _currentTime.timeZoneName == "IST" ||
-  //       _currentTime.timeZoneName == "PSE" ||
-  //       _currentTime.timeZoneName == "PS" ||
-  //       _currentTime.timeZoneName == "EEST") return true;
-  //   return false;
-  // }
-
   @override
   Widget build(BuildContext context) {
     //allow barbers to get in no matter what
@@ -102,12 +78,10 @@ class _BookingState extends State<Booking> {
 
     if (times == null || _currentTime == null) return Loading();
     if (times['isMuradClosed'] == true) return Closed();
-    return (_currentTime.weekday == 7)
-        ? Closed()
-        : (_currentTime.hour < times['start'] ||
-                _currentTime.hour >= times['end'])
-            ? NotYet()
-            : MainBody();
+    return (_currentTime.hour < times['start'] ||
+            _currentTime.hour >= times['end'])
+        ? NotYet()
+        : MainBody();
   }
 }
 

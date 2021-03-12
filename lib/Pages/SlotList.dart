@@ -178,9 +178,10 @@ class _SlotListState extends State<SlotList> {
                             width: 250,
                             height: 50,
                             child: TextFormField(
+                              keyboardType: TextInputType.name,
                               controller: nameController,
                               decoration: const InputDecoration(
-                                hintText: 'What\'s your name ? ',
+                                hintText: 'What\'s your name ?',
                               ),
                               validator: (value) {
                                 if (value.isEmpty)
@@ -199,15 +200,16 @@ class _SlotListState extends State<SlotList> {
                           Container(
                             width: 250,
                             height: 50,
-                            child: TextFormField(
+                            child: TextField(
+                              keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 hintText: 'What\'s your mobile number ? ',
                               ),
-                              validator: (value) {
-                                if (!isNumeric(value))
-                                  return "Enter a valid Phone number ";
-                                return null;
-                              },
+                              // validator: (value) {
+                              //   if (!isNumeric(value))
+                              //     return "Enter a valid Phone number ";
+                              //   return null;
+                              // },
                               controller: phoneController,
                             ),
                           ),

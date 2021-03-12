@@ -50,14 +50,19 @@ dev_dependencies:
   after_layout: ^1.0.7+2
   flutter_picker: ^1.1.5
   connectivity: ^0.4.9+2
-  ntp: ^1.0.7
+  ntp: ^1.0.8
   http: ^0.12.0+4
   flutter_slidable: ^0.5.7
   url_launcher: ^5.6.0
   flutter_bloc: ^6.1.1
+  flutter_native_splash: ^0.2.6 
 
 
 
+
+flutter_native_splash:
+  image: Images/ic_launcher.png
+  color: "ffffff"
 
 
 
