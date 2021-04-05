@@ -14,8 +14,8 @@ class HomeAlternate extends StatelessWidget {
           context: context,
           applicationName: 'Mustache Barbershop',
           applicationIcon:
-              Image.asset('Images/launcher.jpg', width: 90, height: 100),
-          applicationVersion: '1.4',
+              Image.asset('Images/ic_launcher.png', width: 90, height: 100),
+          applicationVersion: '1.5.3',
           children: [
             Text('Developer : Adham Saheb'),
           ]);

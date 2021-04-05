@@ -32,9 +32,11 @@ class _BookingState extends State<Booking> {
         Firestore.instance.collection("Times").document('times');
 
     await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
-      setState(() {
-        times = snapshot.data;
-      });
+      if (this.mounted) {
+        setState(() {
+          times = snapshot.data;
+        });
+      }
     });
   }
 
@@ -42,18 +44,22 @@ class _BookingState extends State<Booking> {
   _findTime() async {
     try {
       // _currentTime = await NTP.now();
-      var result = await http.get(apiUrl);
-      final formatter = DateFormat(r'''yyyy-MM-ddThh:mm''');
-
-      setState(() {
-        //print("imhere");
-        _currentTime = formatter.parse(json.decode(result.body)['datetime']);
-        //print(_currentTime);
-      });
+      var result = await http
+          .get(apiUrl)
+          // ignore: missing_return
+          .timeout(Duration(seconds: 5));
+      final formatter = DateFormat(r'''yyyy-MM-ddTHH:mm''');
+      if (this.mounted) {
+        setState(() {
+          //print("imhere");
+          _currentTime = formatter.parse(json.decode(result.body)['datetime']);
+          //print(_currentTime);
+        });
+      }
     } catch (e) {
-      print("caught");
+      print("caught : " + e.toString());
       setState(() {
-        _currentTime = DateTime.now().toLocal();
+        _currentTime = DateTime.now();
       });
     }
   }
@@ -67,14 +73,16 @@ class _BookingState extends State<Booking> {
 
   String getTime() {
     DateTime now = _currentTime;
-    String formattedDate = DateFormat('EEEE yyyy-MM-dd – kk:mm').format(now);
+    String formattedDate = DateFormat('EEEE yyyy-MM-dd – HH:mm').format(now);
     return formattedDate;
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_currentTime);
     //allow barbers to get in no matter what
     if (widget.isBarber) return MainBody();
+    /* New Attempt */
 
     if (times == null || _currentTime == null) return Loading();
     if (times['isMuradClosed'] == true) return Closed();
@@ -123,7 +131,7 @@ class MainBody extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        DateFormat('EEEE yyyy-MM-dd – kk:mm')
+                        DateFormat('EEEE yyyy-MM-dd – HH:mm')
                             .format(DateTime.now()),
                         textAlign: TextAlign.center,
                         style: TextStyle(

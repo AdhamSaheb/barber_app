@@ -44,9 +44,11 @@ class _SlotListState extends State<SlotList> {
     //get the time
     TimeService service = new TimeService();
     service.getJLMTime().then((value) {
-      setState(() {
-        today = value;
-      });
+      if (mounted) {
+        setState(() {
+          today = value;
+        });
+      }
     });
   }
 
@@ -143,14 +145,6 @@ class _SlotListState extends State<SlotList> {
           );
         },
       );
-    }
-
-    //this is to check if the phone is actually a number
-    bool isNumeric(String s) {
-      if (s == null) {
-        return false;
-      }
-      return double.parse(s, (e) => null) != null;
     }
 
     bool isFull() {

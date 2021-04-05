@@ -1,8 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:ntp/ntp.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/Pages/Barbershop%20State/Closed.dart';
@@ -33,9 +29,11 @@ class _Booking2State extends State<Booking2> {
         Firestore.instance.collection("Times").document('times');
 
     await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
-      setState(() {
-        times = snapshot.data;
-      });
+      if (this.mounted) {
+        setState(() {
+          times = snapshot.data;
+        });
+      }
     });
   }
 
@@ -43,25 +41,26 @@ class _Booking2State extends State<Booking2> {
   _findTime() async {
     try {
       // _currentTime = await NTP.now();
-      var result = await http.get(apiUrl);
-      final formatter = DateFormat(r'''yyyy-MM-ddThh:mm''');
-
-      setState(() {
-        //print("imhere");
-        _currentTime = formatter.parse(json.decode(result.body)['datetime']);
-        //print(_currentTime);
-      });
+      var result = await http.get(apiUrl).timeout(Duration(seconds: 5));
+      final formatter = DateFormat(r'''yyyy-MM-ddTHH:mm''');
+      if (this.mounted) {
+        setState(() {
+          //print("imhere");
+          _currentTime = formatter.parse(json.decode(result.body)['datetime']);
+          //print(_currentTime);
+        });
+      }
     } catch (e) {
-      print("caught");
+      print("caught :" + e.toString());
       setState(() {
-        _currentTime = DateTime.now().toLocal();
+        _currentTime = DateTime.now();
       });
     }
   }
 
   String getTime() {
     DateTime now = _currentTime;
-    String formattedDate = DateFormat('EEEE yyyy-MM-dd – kk:mm').format(now);
+    String formattedDate = DateFormat('EEEE yyyy-MM-dd – HH:mm').format(now);
     return formattedDate;
   }
 
@@ -123,7 +122,7 @@ class MainBody extends StatelessWidget {
                     margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      DateFormat('EEEE yyyy-MM-dd – kk:mm')
+                      DateFormat('EEEE yyyy-MM-dd – HH:mm')
                           .format(DateTime.now()),
                       textAlign: TextAlign.center,
                       style: TextStyle(

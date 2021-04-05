@@ -16,9 +16,9 @@ class Choice extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height / 3,
+                    height: MediaQuery.of(context).size.height / 4,
                     child: Column(
                       children: [
                         Image.asset('Images/Murad.png'),
@@ -60,7 +60,7 @@ class Choice extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
                     width: double.infinity,
                     child: Column(
                       children: [

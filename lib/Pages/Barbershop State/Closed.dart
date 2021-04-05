@@ -20,7 +20,7 @@ class Closed extends StatelessWidget {
               height: 60,
             ),
             Text(
-              'We\'re Closed Today',
+              'Closed Today',
               style: TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
