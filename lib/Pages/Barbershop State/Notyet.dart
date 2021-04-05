@@ -4,6 +4,7 @@ class NotYet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
@@ -20,7 +21,7 @@ class NotYet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 Text(
                   'Not Yet !',
@@ -33,9 +34,9 @@ class NotYet extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                Image(image: AssetImage('Images/notyet.png')),
+                Image(image: AssetImage('Images/notYet.png')),
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Text(
                   'Reservation has not been open yet, Sorry !',

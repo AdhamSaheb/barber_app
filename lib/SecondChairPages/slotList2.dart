@@ -12,7 +12,7 @@ import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:sample_app/Services/Time.dart';
+//import 'package:sample_app/Services/Time.dart';
 
 class SlotList2 extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ final nameController = new TextEditingController();
 final phoneController = new TextEditingController();
 StreamSubscription subscription;
 
-dynamic today;
+//dynamic today;
 
 class _SlotList2State extends State<SlotList2> {
   @override
@@ -42,14 +42,6 @@ class _SlotList2State extends State<SlotList2> {
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none)
         Navigator.pushReplacementNamed(context, '/noConnection');
-    });
-
-    //get the time
-    TimeService service = new TimeService();
-    service.getJLMTime().then((value) {
-      setState(() {
-        today = value;
-      });
     });
   }
 
@@ -76,8 +68,6 @@ class _SlotList2State extends State<SlotList2> {
 
   @override
   Widget build(BuildContext context) {
-    if (today == null) return Loading();
-    //print(today);
     isConnected().then((value) => {
           if (value == false)
             Navigator.pushReplacementNamed(context, '/noConnection')
@@ -93,7 +83,6 @@ class _SlotList2State extends State<SlotList2> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  //Text('Reservation Successful !'),
                   Text("We will send you a message if your reservation at " +
                       time +
                       " is confirmed"),
@@ -104,10 +93,6 @@ class _SlotList2State extends State<SlotList2> {
               FlatButton(
                 child: Text('Continue'),
                 onPressed: () {
-                  // Navigator.popUntil(context, ModalRoute.withName('/home'));
-                  // Navigator.pop(context);
-                  // Navigator.pop(context);
-                  // Navigator.popUntil(context, ModalRoute.withName('/initial'));
                   Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, '/initial');
                 },
@@ -118,52 +103,12 @@ class _SlotList2State extends State<SlotList2> {
       );
     }
 
-    // this will show the dialoug after reservation with no time slot selected
-    Future<void> _showSelectTimeDialog() async {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('No time selected '),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  //Text('Reservation Successful !'),
-                  Text("Please select a time slot if available !"),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          );
-        },
-      );
-    }
-
-    //this is to check if the phone is actually a number
-    bool isNumeric(String s) {
-      if (s == null) {
-        return false;
-      }
-      return double.parse(s, (e) => null) != null;
-    }
-
     final _formKey = GlobalKey<FormState>();
     final slots = Provider.of<List<Slot>>(context);
 
-    // slots.forEach((slot) {
-    //    DatabaseService().init(slot.time);
-    //  });
-
     bool isFull() {
       for (int i = 0; i < slots.length; i++) {
-        if (!slots[i].isTaken(today)) return false;
+        if (!slots[i].isReserved()) return false;
       }
       return true;
     }
@@ -197,7 +142,6 @@ class _SlotList2State extends State<SlotList2> {
                       ),
                     ],
                   ),
-                  //SizedBox(height:10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -205,16 +149,16 @@ class _SlotList2State extends State<SlotList2> {
                       Container(
                         width: 250,
                         height: 50,
-                        child: TextField(
+                        child: TextFormField(
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             hintText: 'What\'s you mobile number ? ',
                           ),
-                          // validator: (value) {
-                          //   if (!isNumeric(value))
-                          //     return "Enter a valid Phone number ";
-                          //   return null;
-                          // },
+                          validator: (value) {
+                            if (!isNumeric(value) || value.isEmpty)
+                              return "Enter a valid Phone number ";
+                            return null;
+                          },
                           controller: phoneController,
                         ),
                       ),
@@ -257,8 +201,7 @@ class _SlotList2State extends State<SlotList2> {
                       scrollDirection: Axis.horizontal,
                       itemCount: slots.length,
                       itemBuilder: (context, index) {
-                        return (slots[index].isTaken(today) == true)
-                            //                           ? Taken()
+                        return (slots[index].isReserved() == true)
                             ? Taken()
                             : (slots[index].isPending() == true)
                                 ? Pending()
@@ -275,7 +218,6 @@ class _SlotList2State extends State<SlotList2> {
                                     },
                                     child: SlotTile(
                                       slot: slots[index],
-                                      //selected: choices[index]
                                     ),
                                   );
                       },
@@ -284,4 +226,14 @@ class _SlotList2State extends State<SlotList2> {
                 ]),
               );
   }
+}
+
+/* ------------------------------------------------------ */
+
+//this is to check if the phone is actually a number
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.parse(s, (e) => null) != null;
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_app/Components/SlotTile.dart';
@@ -10,7 +9,6 @@ import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Models/Slot.dart';
 import 'package:sample_app/Services/Database.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:sample_app/Services/Time.dart';
 
 class SlotList extends StatefulWidget {
   @override
@@ -24,13 +22,11 @@ String time = "";
 final nameController = new TextEditingController();
 final phoneController = new TextEditingController();
 StreamSubscription subscription;
-dynamic today;
 
 class _SlotListState extends State<SlotList> {
   @override
   void initState() {
     super.initState();
-    //choices = List.filled(18, false);
     nameController.clear();
     phoneController.clear();
     //subscribe to connection change
@@ -39,16 +35,6 @@ class _SlotListState extends State<SlotList> {
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none)
         Navigator.pushReplacementNamed(context, '/noConnection');
-    });
-
-    //get the time
-    TimeService service = new TimeService();
-    service.getJLMTime().then((value) {
-      if (mounted) {
-        setState(() {
-          today = value;
-        });
-      }
     });
   }
 
@@ -75,8 +61,6 @@ class _SlotListState extends State<SlotList> {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final slots = Provider.of<List<Slot>>(context);
-    if (today == null) return Loading();
-
     isConnected().then((value) => {
           if (value == false)
             Navigator.pushReplacementNamed(context, '/noConnection')
@@ -104,12 +88,6 @@ class _SlotListState extends State<SlotList> {
               FlatButton(
                   child: Text('Continue'),
                   onPressed: () {
-                    // Navigator.popUntil(
-                    //     context, ModalRoute.withName('/initial'));
-                    // Navigator.pop(context);
-                    // Navigator.pushReplacementNamed(context, '/initial');
-                    // Navigator.pop(context);
-                    // Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, '/initial');
                   }),
@@ -119,37 +97,9 @@ class _SlotListState extends State<SlotList> {
       );
     }
 
-    // this will show the dialoug after reservation with no time slot selected
-    Future<void> _showSelectTimeDialog() async {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('No time selected '),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  //Text('Reservation Successful !'),
-                  Text("Please select a time slot if available !"),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          );
-        },
-      );
-    }
-
     bool isFull() {
       for (int i = 0; i < slots.length; i++) {
-        if (!slots[i].isTaken(today)) return false;
+        if (!slots[i].isReserved()) return false;
       }
       return true;
     }
@@ -186,7 +136,6 @@ class _SlotListState extends State<SlotList> {
                           ),
                         ],
                       ),
-                      //SizedBox(height:10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
@@ -194,16 +143,16 @@ class _SlotListState extends State<SlotList> {
                           Container(
                             width: 250,
                             height: 50,
-                            child: TextField(
+                            child: TextFormField(
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 hintText: 'What\'s your mobile number ? ',
                               ),
-                              // validator: (value) {
-                              //   if (!isNumeric(value))
-                              //     return "Enter a valid Phone number ";
-                              //   return null;
-                              // },
+                              validator: (value) {
+                                if (!isNumeric(value) || value.isEmpty)
+                                  return "Enter a valid Phone number ";
+                                return null;
+                              },
                               controller: phoneController,
                             ),
                           ),
@@ -226,7 +175,12 @@ class _SlotListState extends State<SlotList> {
                           )
                         ],
                       ),
-
+                      Divider(
+                        indent: 50,
+                        endIndent: 50,
+                        color: Colors.black,
+                        thickness: 1.5,
+                      ),
                       Expanded(
                         child: GridView.builder(
                           physics: BouncingScrollPhysics(),
@@ -242,7 +196,7 @@ class _SlotListState extends State<SlotList> {
                           scrollDirection: Axis.horizontal,
                           itemCount: slots.length,
                           itemBuilder: (context, index) {
-                            return (slots[index].isTaken(today) == true)
+                            return (slots[index].isReserved() == true)
                                 ? Taken()
                                 : (slots[index].isPending() == true)
                                     ? Pending()
@@ -260,40 +214,21 @@ class _SlotListState extends State<SlotList> {
                                         },
                                         child: SlotTile(
                                           slot: slots[index],
-                                          //selected: choices[index]
                                         ),
                                       );
                           },
                         ),
                       ),
-
-                      // RaisedButton(
-                      //   color: Colors.black,
-                      //   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(15.0),
-                      //       side: BorderSide(color: Colors.black)),
-                      //   onPressed: () {
-                      //     if (choices.indexOf(true) != -1) {
-                      //       if (_formKey.currentState.validate()) {
-                      //         DatabaseService().updatedata(nameController.text,
-                      //             phoneController.text, time);
-                      //         _showMyDialog();
-                      //         _formKey.currentState.reset();
-                      //       }
-                      //     } else {
-                      //       _showSelectTimeDialog();
-                      //     }
-                      //   },
-                      //   child: Text(
-                      //     'Confirm',
-                      //     style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 25,
-                      //     ),
-                      //   ),
-                      // ),
                     ]),
               );
   }
+}
+
+/* ------------------------------------------------------ */
+//this is to check if the phone is actually a number
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.parse(s, (e) => null) != null;
 }

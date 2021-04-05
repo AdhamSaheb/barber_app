@@ -1,12 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/Pages/Barbershop%20State/Closed.dart';
 import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Pages/Barbershop%20State/Notyet.dart';
+import 'package:sample_app/Pages/Miscellaneous/noConnection.dart';
 import 'package:sample_app/SecondChairPages/MyForm2.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/BookingBloc/bloc/booking_bloc.dart';
 
 class Booking2 extends StatefulWidget {
   // to check wether navigated user is a barber
@@ -18,74 +18,30 @@ class Booking2 extends StatefulWidget {
 }
 
 class _Booking2State extends State<Booking2> {
-  dynamic times;
-  dynamic _currentTime;
-  //api to get time jerusalem
-  final String apiUrl = "http://worldtimeapi.org/api/timezone/Asia/Jerusalem";
-
-//get opening and closing times from firestore
-  Future<dynamic> getTimes() async {
-    final DocumentReference document =
-        Firestore.instance.collection("Times").document('times');
-
-    await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
-      if (this.mounted) {
-        setState(() {
-          times = snapshot.data;
-        });
-      }
-    });
-  }
-
-//get the time in jerusalem
-  _findTime() async {
-    try {
-      // _currentTime = await NTP.now();
-      var result = await http.get(apiUrl).timeout(Duration(seconds: 5));
-      final formatter = DateFormat(r'''yyyy-MM-ddTHH:mm''');
-      if (this.mounted) {
-        setState(() {
-          //print("imhere");
-          _currentTime = formatter.parse(json.decode(result.body)['datetime']);
-          //print(_currentTime);
-        });
-      }
-    } catch (e) {
-      print("caught :" + e.toString());
-      setState(() {
-        _currentTime = DateTime.now();
-      });
-    }
-  }
-
-  String getTime() {
-    DateTime now = _currentTime;
-    String formattedDate = DateFormat('EEEE yyyy-MM-dd – HH:mm').format(now);
-    return formattedDate;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getTimes();
-    _findTime();
-  }
-
   @override
   Widget build(BuildContext context) {
-    //let barbers in no matter what
-    if (widget.isBarber) return MainBody();
-
-    if (times == null || _currentTime == null) return Loading();
-    if (times['isEddyClosed'] == true) return Closed();
-    return (_currentTime.hour < times['start'] ||
-            _currentTime.hour >= times['end'])
-        ? NotYet()
-        : MainBody();
+    return BlocBuilder<BookingBloc, BookingState>(
+      builder: (context, state) {
+        if (state is BookingInitial) {
+          BlocProvider.of<BookingBloc>(context)
+              .add(FetchData(barberName: 'Eddy', isBarber: widget.isBarber));
+        }
+        if (state is BookingLoading) return Loading();
+        if (state is BookingClosed) return Closed();
+        if (state is BookingNotYet) return NotYet();
+        if (state is BookingLoaded)
+          return MainBody(
+            now: state.now,
+          );
+        return noConnection();
+      },
+    );
   }
 }
 
 class MainBody extends StatelessWidget {
+  final DateTime now;
+  MainBody({this.now});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,13 +73,10 @@ class MainBody extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.black87),
-                    // color: Colors.black87,
-                    // width: double.infinity,
                     margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      DateFormat('EEEE yyyy-MM-dd – HH:mm')
-                          .format(DateTime.now()),
+                      DateFormat('EEEE yyyy-MM-dd – HH:mm').format(now),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'ChelseaMarket',

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/BookingBloc/bloc/booking_bloc.dart';
 import 'package:sample_app/Pages/Booking.dart';
+import 'package:sample_app/Pages/ReservationStatus/ReservationStatusUI.dart';
+import 'package:sample_app/Pages/ReservationStatus/bloc/reservationstatus_bloc.dart';
 import 'package:sample_app/SecondChairPages/Booking2.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeAlternate extends StatelessWidget {
   @override
@@ -15,7 +19,7 @@ class HomeAlternate extends StatelessWidget {
           applicationName: 'Mustache Barbershop',
           applicationIcon:
               Image.asset('Images/ic_launcher.png', width: 90, height: 100),
-          applicationVersion: '1.5.3',
+          applicationVersion: '2.0',
           children: [
             Text('Developer : Adham Saheb'),
           ]);
@@ -82,21 +86,6 @@ class HomeAlternate extends StatelessWidget {
                 ),
               ],
             ),
-
-            //This row will have information
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Icon(
-            //       Icons.phone,
-            //       size: 20,
-            //     ),
-            //     SizedBox(
-            //       width: 20,
-            //     ),
-            //     Text('(+972) 52 8755988')
-            //   ],
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,7 +120,7 @@ class HomeAlternate extends StatelessWidget {
                   RaisedButton(
                       elevation: 5.0,
                       color: Colors.blue,
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -176,8 +165,11 @@ class HomeAlternate extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Booking(
-                                    isBarber: false,
+                              builder: (context) => BlocProvider(
+                                    create: (context) => BookingBloc(),
+                                    child: Booking(
+                                      isBarber: false,
+                                    ),
                                   )),
                         );
                       }),
@@ -187,7 +179,7 @@ class HomeAlternate extends StatelessWidget {
                   RaisedButton(
                       elevation: 5.0,
                       color: Colors.white,
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -230,8 +222,66 @@ class HomeAlternate extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Booking2(
-                                    isBarber: false,
+                              builder: (context) => BlocProvider(
+                                    create: (context) => BookingBloc(),
+                                    child: Booking2(
+                                      isBarber: false,
+                                    ),
+                                  )),
+                        );
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  RaisedButton(
+                      elevation: 5.0,
+                      color: Colors.red,
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                'Check Reservation Status',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Check Status of Your Most Recent Reservations',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontFamily: 'ChelseaMarket'),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.calendar_today,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        ReservationstatusBloc(),
+                                    child: ReservationStatus(),
                                   )),
                         );
                       }),

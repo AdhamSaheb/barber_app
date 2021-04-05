@@ -4,6 +4,7 @@ class Closed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
@@ -28,17 +29,14 @@ class Closed extends StatelessWidget {
             ),
             Image(image: AssetImage('Images/closed.png')),
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             Container(
-              width: 300,
+              width: 350,
               child: Text(
-                'This barber is not wroking today, apologies !',
+                'This Barber is not working today, Sorry',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto'),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
           ]),

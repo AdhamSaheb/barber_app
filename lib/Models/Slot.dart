@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sample_app/Services/Time.dart';
+import 'package:ntp/ntp.dart';
 
 class Slot {
   String time;
@@ -7,8 +7,16 @@ class Slot {
   String name;
   Timestamp reservationTime;
   bool pending;
+  String deviceId;
 
-  Slot({this.time, this.phone, this.name, this.reservationTime, this.pending});
+  Slot({
+    this.time,
+    this.phone,
+    this.name,
+    this.reservationTime,
+    this.pending,
+    this.deviceId,
+  });
 
   bool isReserved() {
     // dynamic now = this.service.getJLMTime();

@@ -18,22 +18,36 @@ import 'package:sample_app/SecondChairPages/Query2.dart';
 import 'package:sample_app/Services/authentication.dart';
 import 'Pages/Miscellaneous/Loading.dart';
 import 'Pages/Booking.dart';
-// import 'Pages/About.dart';
+import 'dart:io' show Platform;
+import 'package:in_app_update/in_app_update.dart';
 import 'Pages/Query.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    //since in app update only works on android
+    if (Platform.isAndroid) {
+      checkForUpdate();
+    }
+  }
+
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-
-        // theme: ThemeData(
-        //   primarySwatch: Colors.white,
-        // ),
         initialRoute: '/initial',
         routes: {
           '/login': (context) => LoginPage(),
@@ -57,4 +71,17 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+// Platform messages are asynchronous, so we initialize in an async method.
+Future<void> checkForUpdate() async {
+  InAppUpdate.checkForUpdate().then((info) {
+    if (info.updateAvailable) {
+      InAppUpdate.performImmediateUpdate();
+    } else {
+      print('no updates available');
+    }
+  }).catchError((e) {
+    print("in app update error : " + e.toString());
+  });
 }

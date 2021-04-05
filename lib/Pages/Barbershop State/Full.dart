@@ -22,7 +22,9 @@ class Full extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            Image(image: AssetImage('Images/up.png')),
+            FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Image(image: AssetImage('Images/up.png'))),
             SizedBox(
               height: 50,
             ),

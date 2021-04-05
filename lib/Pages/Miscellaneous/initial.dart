@@ -4,6 +4,8 @@ import 'package:sample_app/Intro/IntroScreen.dart';
 import 'package:sample_app/Pages/Miscellaneous/Loading.dart';
 import 'package:sample_app/Pages/Miscellaneous/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
+import 'package:upgrader/upgrader.dart';
 
 class Initial extends StatefulWidget {
   @override
@@ -29,6 +31,15 @@ class _InitialState extends State<Initial> with AfterLayoutMixin<Initial> {
   void afterFirstLayout(BuildContext context) => checkFirstSeen();
   @override
   Widget build(BuildContext context) {
-    return Loading();
+    return (Platform.isIOS)
+        ? UpgradeAlert(
+            debugAlwaysUpgrade: true,
+            dialogStyle: UpgradeDialogStyle.cupertino,
+            countryCode: 'IL',
+            debugLogging: true,
+            showIgnore: false,
+            child: Loading(),
+          )
+        : Loading();
   }
 }

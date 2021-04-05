@@ -34,13 +34,15 @@ class noConnection extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                Text(
-                  'Looks like your phone is not connected to the Internet, try connecting to a network and set your device\'s Time to Automatic ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto',
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    'Looks like your phone is not connected to the Internet, try connecting to a network and set your device\'s Time to Automatic ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                    ),
                   ),
                 ),
               ]),
